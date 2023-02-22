@@ -1,6 +1,7 @@
 package com.qaprosoft.carina.demo;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
+import com.qaprosoft.carina.demo.api.dummy.GetPostMethod;
 import com.qaprosoft.carina.demo.api.dummy.GetUserMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,5 +17,12 @@ public class DummyApiTest implements IAbstractTest {
         GetUserMethod getUserMethod = new GetUserMethod("60d0fe4f5311236168a109cb");
         getUserMethod.callAPIExpectSuccess();
         getUserMethod.validateResponse();
+    }
+
+    @Test
+    public void testGetPostById() {
+        GetPostMethod getPostMethod = new GetPostMethod("60d21b4967d0d8992e610c90");
+        getPostMethod.callAPIExpectSuccess();
+        getPostMethod.validateResponse();
     }
 }

@@ -1,0 +1,20 @@
+{
+  "id": "60d21b4967d0d8992e610c90",
+  "image": "https://img.dummyapi.io/photo-1510414696678-2415ad8474aa.jpg",
+  "likes": 33,
+  "link": null,
+  "tags": [
+    "snow",
+    "ice",
+    "mountain"
+  ],
+  "text": "ice caves in the wild landscape photo of ice near gray cliff",
+  "publishDate": "2020-05-24T07:44:17.738Z",
+  "owner": {
+    "id": "60d0fe4f5311236168a10a0b",
+    "title": "miss",
+    "firstName": "Margarita",
+    "lastName": "Vicente",
+    "picture": "https://randomuser.me/api/portraits/med/women/5.jpg"
+  }
+}
