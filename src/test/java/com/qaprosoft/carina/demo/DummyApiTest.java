@@ -2,10 +2,7 @@ package com.qaprosoft.carina.demo;
 
 import com.qaprosoft.apitools.validation.JsonCompareKeywords;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
-import com.qaprosoft.carina.demo.api.dummy.GetCreatedUsersMethod;
-import com.qaprosoft.carina.demo.api.dummy.GetPostMethod;
-import com.qaprosoft.carina.demo.api.dummy.GetUserMethod;
-import com.qaprosoft.carina.demo.api.dummy.PostUserMethod;
+import com.qaprosoft.carina.demo.api.dummy.*;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,5 +42,13 @@ public class DummyApiTest implements IAbstractTest {
         postUserMethod.setProperties("api/dummy/user.properties");
         postUserMethod.callAPIExpectSuccess();
         postUserMethod.validateResponse();
+    }
+
+    @Test
+    public void testChangeUser() {
+        PutUserMethod putUserMethod = new PutUserMethod("63f746c7a9fdf82127982b2f");
+        putUserMethod.setProperties("api/dummy/user.properties");
+        putUserMethod.callAPIExpectSuccess();
+        putUserMethod.validateResponse();
     }
 }
