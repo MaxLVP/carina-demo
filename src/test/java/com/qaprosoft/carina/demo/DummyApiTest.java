@@ -3,6 +3,7 @@ package com.qaprosoft.carina.demo;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.demo.api.dummy.GetPostMethod;
 import com.qaprosoft.carina.demo.api.dummy.GetUserMethod;
+import com.qaprosoft.carina.demo.api.dummy.PostUserMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -24,5 +25,13 @@ public class DummyApiTest implements IAbstractTest {
         GetPostMethod getPostMethod = new GetPostMethod("60d21b4967d0d8992e610c90");
         getPostMethod.callAPIExpectSuccess();
         getPostMethod.validateResponse();
+    }
+
+    @Test
+    public void testCreateUser() {
+        PostUserMethod postUserMethod = new PostUserMethod();
+        postUserMethod.setProperties("api/dummy/user.properties");
+        postUserMethod.callAPIExpectSuccess();
+        postUserMethod.validateResponse();
     }
 }
