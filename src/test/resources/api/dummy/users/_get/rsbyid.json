@@ -1,11 +1,11 @@
 {
-  "id" : "regex:[a-z\\d]",
+  "id": "60d0fe4f5311236168a109cb",
   "title": "miss",
-  "firstName": "${firstname}",
-  "lastName": "${lastname}",
+  "firstName": "Edita",
+  "lastName": "Vestering",
   "picture": "https://randomuser.me/api/portraits/med/women/89.jpg",
   "gender": "female",
-  "email": "${email}",
+  "email": "edita.vestering@example.com",
   "dateOfBirth": "1956-04-15T00:10:35.555Z",
   "phone": "(019)-646-0430",
   "location": {
@@ -15,6 +15,6 @@
     "country": "Netherlands",
     "timezone": "-5:00"
   },
-  "registerDate": "skip",
-  "updatedDate": "skip"
+  "registerDate": "2021-06-21T21:02:07.533Z",
+  "updatedDate": "2021-06-21T21:02:07.533Z"
 }

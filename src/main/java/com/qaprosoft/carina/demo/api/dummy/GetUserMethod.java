@@ -11,7 +11,7 @@ import com.zebrunner.carina.utils.Configuration;
 
 @Endpoint(url = "${base_url}/user/${id}", methodType = HttpMethodType.GET)
 @Header(key = "app-id", value = "63e9ff7f6450e9fba03746a9")
-@ResponseTemplatePath(path = "api/dummy/users/_get/rs.json")
+@ResponseTemplatePath(path = "api/dummy/users/_get/rsbyid.json")
 @SuccessfulHttpStatus(status = HttpResponseStatusType.OK_200)
 public class GetUserMethod extends AbstractApiMethodV2 {
 
