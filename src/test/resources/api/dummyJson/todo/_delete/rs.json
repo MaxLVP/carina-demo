@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "todo": "type:String",
+  "completed": "type:Boolean",
+  "userId": "regex:[\\d]",
+  "isDeleted": true,
+  "deletedOn": "skip"
+}

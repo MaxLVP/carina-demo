@@ -1,0 +1,6 @@
+{
+  "id": "regex:[\\d]",
+  "todo": "type:String",
+  "completed": "type:Boolean",
+  "userId": "regex:[\\d]"
+}
