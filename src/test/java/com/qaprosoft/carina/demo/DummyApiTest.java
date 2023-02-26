@@ -54,7 +54,7 @@ public class DummyApiTest implements IAbstractTest {
 
     @Test
     public void testDeleteUser() {
-        DeleteUserMethod deleteUserMethod = new DeleteUserMethod("63f75042ec32f747b57b9786");
+        DeleteUserMethod deleteUserMethod = new DeleteUserMethod("63f8ba735e7da6f2fdad9ba3");
         deleteUserMethod.setProperties("api/dummy/user.properties");
         deleteUserMethod.callAPIExpectSuccess();
         deleteUserMethod.validateResponse();
