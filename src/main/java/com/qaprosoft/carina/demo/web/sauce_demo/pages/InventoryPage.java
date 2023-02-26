@@ -21,6 +21,12 @@ public class InventoryPage extends AbstractPage {
     @FindBy(xpath = "//div[@class = 'inventory_item']")
     private List<ProductModel> productModelList;
 
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    private ExtendedWebElement cartPageBtn;
+
+    @FindBy(xpath = "//a[@class='shopping_cart_link']//span")
+    private ExtendedWebElement cartItemsNumber;
+
     public InventoryPage(WebDriver driver) {
         super(driver);
         setPageAbsoluteURL("https://www.saucedemo.com/inventory.html");
@@ -33,11 +39,28 @@ public class InventoryPage extends AbstractPage {
     }
 
     public ProductModel selectModel(String modelName) {
-        for (ProductModel productModel: productModelList) {
-            if(productModel.returnProductName().equalsIgnoreCase(modelName)) {
+        LOGGER.info("Get model " + modelName);
+        for (ProductModel productModel : productModelList) {
+            if (productModel.returnProductName().equalsIgnoreCase(modelName)) {
                 return productModel;
             }
         }
         throw new RuntimeException("Unable to get model: " + modelName);
+    }
+
+    public void fillInCart() {
+        LOGGER.info("Add all product to cart");
+        for (ProductModel productModel : productModelList) {
+            productModel.addToCart();
+        }
+    }
+
+    public String getNumberOfItems() {
+        LOGGER.info("Get number of items in cart");
+        return cartItemsNumber.getText();
+    }
+
+    public boolean isNumberOfItemsPresent() {
+        return cartItemsNumber.isElementPresent();
     }
 }

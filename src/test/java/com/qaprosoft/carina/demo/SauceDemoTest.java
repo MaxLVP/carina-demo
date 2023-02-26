@@ -60,4 +60,20 @@ public class SauceDemoTest implements IAbstractTest {
         softAssert.assertEquals(productInfoPage.readInfo(), productDesc);
         softAssert.assertAll();
     }
+
+    @Test
+    public void testCart() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        InventoryPage inventoryPage = homePage.authorization();
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        inventoryPage.fillInCart();
+        Assert.assertTrue(inventoryPage.isNumberOfItemsPresent(), "The cart is not fill in");
+        Assert.assertEquals(inventoryPage.getNumberOfItems(), "6", "Number of items is not valid");
+        Menu menu = inventoryPage.openMenu();
+        Assert.assertTrue(menu.isUIObjectPresent(), "Menu is not opened");
+        menu.resetCart();
+        Assert.assertFalse(inventoryPage.isNumberOfItemsPresent(), "The cart is not reset");
+    }
 }

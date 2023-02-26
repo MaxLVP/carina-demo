@@ -27,6 +27,7 @@ public class Menu extends AbstractUIObject {
 
     public Menu(WebDriver driver) {
         super(driver);
+        setRootExtendedElement(inventoryPageOpen);
     }
 
     public void logout() {
@@ -38,5 +39,10 @@ public class Menu extends AbstractUIObject {
         LOGGER.info("Open about page");
         aboutPageOpen.click();
         return new AboutPage(driver);
+    }
+
+    public void resetCart() {
+        LOGGER.info("Reset cart");
+        resetButton.click();
     }
 }

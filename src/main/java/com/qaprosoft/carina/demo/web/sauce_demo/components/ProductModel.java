@@ -21,6 +21,9 @@ public class ProductModel extends AbstractUIObject {
     @FindBy(xpath = ".//div[@class='inventory_item_price']")
     private ExtendedWebElement productPrice;
 
+    @FindBy(xpath = ".//button[contains(@id, 'add-to-cart')]")
+    private ExtendedWebElement addCart;
+
 
     public ProductModel(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
@@ -41,6 +44,10 @@ public class ProductModel extends AbstractUIObject {
 
     public String returnProductPrice() {
         return productPrice.getText();
+    }
+
+    public void addToCart() {
+        addCart.click();
     }
 
 }
