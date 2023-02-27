@@ -7,6 +7,9 @@ import com.qaprosoft.carina.demo.web.sauce_demo.components.Menu;
 import com.qaprosoft.carina.demo.web.sauce_demo.pages.checkout.CheckoutComplete;
 import com.qaprosoft.carina.demo.web.sauce_demo.pages.checkout.CheckoutPage;
 import com.qaprosoft.carina.demo.web.sauce_demo.pages.checkout.CheckoutPage2;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.social.FacebookPage;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.social.LinkedInPage;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.social.TwitterAccountPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -141,5 +144,48 @@ public class SauceDemoTest implements IAbstractTest {
         Assert.assertTrue(inventoryPage.checkIfSortAZCorrect(), "Models are not filter");
         inventoryPage.changeFilterToZA();
         Assert.assertTrue(inventoryPage.checkIfSortZACorrect(), "Models are not filter");
+    }
+
+    @Test
+    public void checkSocialLinks() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        InventoryPage inventoryPage = homePage.authorization();
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        TwitterAccountPage twitterAccountPage = inventoryPage.openTwitter();
+        String originalWindow = getDriver().getWindowHandle();
+        for (String windowHandle : getDriver().getWindowHandles()) {
+            if(!originalWindow.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+        Assert.assertTrue(twitterAccountPage.isPageOpened(), "Twitter account page is not open!");
+        getDriver().close();
+        getDriver().switchTo().window(originalWindow);
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        FacebookPage facebookPage = inventoryPage.openFacebook();
+        for (String windowHandle : getDriver().getWindowHandles()) {
+            if(!originalWindow.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+        Assert.assertTrue(facebookPage.isPageOpened(), "Facebook account page is not opened!");
+        getDriver().close();
+        getDriver().switchTo().window(originalWindow);
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        LinkedInPage linkedInPage = inventoryPage.openLinkedIn();
+        for (String windowHandle : getDriver().getWindowHandles()) {
+            if(!originalWindow.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+        Assert.assertTrue(linkedInPage.isPageOpened(), "Linkedin account page is not opened!");
+        getDriver().close();
+        getDriver().switchTo().window(originalWindow);
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
     }
 }

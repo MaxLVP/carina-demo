@@ -4,6 +4,9 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.web.sauce_demo.components.Menu;
 import com.qaprosoft.carina.demo.web.sauce_demo.components.ProductModel;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.social.FacebookPage;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.social.LinkedInPage;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.social.TwitterAccountPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -32,6 +35,15 @@ public class InventoryPage extends AbstractPage {
 
     @FindBy(xpath = "//select[@class = 'product_sort_container']")
     private ExtendedWebElement selectFilter;
+
+    @FindBy(xpath = "//li[@class='social_twitter']//a")
+    private ExtendedWebElement twitterLink;
+
+    @FindBy(xpath = "//li[@class='social_facebook']//a")
+    private ExtendedWebElement facebookLink;
+
+    @FindBy(xpath = "//li[@class='social_linkedin']//a")
+    private ExtendedWebElement linkedinLink;
 
     public InventoryPage(WebDriver driver) {
         super(driver);
@@ -74,6 +86,24 @@ public class InventoryPage extends AbstractPage {
         LOGGER.info("Open cart page");
         cartPageBtn.click();
         return new CartPage(driver);
+    }
+
+    public TwitterAccountPage openTwitter() {
+        LOGGER.info("Open twitter account");
+        twitterLink.click();
+        return new TwitterAccountPage(driver);
+    }
+
+    public FacebookPage openFacebook() {
+        LOGGER.info("Open facebook account");
+        facebookLink.click();
+        return new FacebookPage(driver);
+    }
+
+    public LinkedInPage openLinkedIn() {
+        LOGGER.info("Open linkedIn account");
+        linkedinLink.click();
+        return new LinkedInPage(driver);
     }
 
     public void changeFilterToLoHi() {
