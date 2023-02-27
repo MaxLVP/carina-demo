@@ -63,4 +63,10 @@ public class InventoryPage extends AbstractPage {
     public boolean isNumberOfItemsPresent() {
         return cartItemsNumber.isElementPresent();
     }
+
+    public CartPage openCartPage() {
+        LOGGER.info("Open cart page");
+        cartPageBtn.click();
+        return new CartPage(driver);
+    }
 }

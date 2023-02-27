@@ -2,11 +2,8 @@ package com.qaprosoft.carina.demo;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.demo.web.sauce_demo.components.ProductModel;
-import com.qaprosoft.carina.demo.web.sauce_demo.pages.AboutPage;
-import com.qaprosoft.carina.demo.web.sauce_demo.pages.HomePage;
-import com.qaprosoft.carina.demo.web.sauce_demo.pages.InventoryPage;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.*;
 import com.qaprosoft.carina.demo.web.sauce_demo.components.Menu;
-import com.qaprosoft.carina.demo.web.sauce_demo.pages.ProductInfoPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -75,5 +72,31 @@ public class SauceDemoTest implements IAbstractTest {
         Assert.assertTrue(menu.isUIObjectPresent(), "Menu is not opened");
         menu.resetCart();
         Assert.assertFalse(inventoryPage.isNumberOfItemsPresent(), "The cart is not reset");
+    }
+
+    @Test
+    public void testOrder() {
+        String productName = "Sauce Labs Fleece Jacket";
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        InventoryPage inventoryPage = homePage.authorization();
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        ProductModel productModel = inventoryPage.selectModel(productName);
+        productModel.addToCart();
+        Assert.assertTrue(productModel.isRemoveButtonDisplay(), "The item is not add to cart");
+        Assert.assertTrue(inventoryPage.isNumberOfItemsPresent(), "The cart is not fill in");
+        Assert.assertEquals(inventoryPage.getNumberOfItems(), "1", "Number of items is not valid");
+        CartPage cartPage = inventoryPage.openCartPage();
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened!");
+        CheckoutPage checkoutPage = cartPage.openCheckoutPage();
+        Assert.assertTrue(checkoutPage.isPageOpened(), "Checkout page is not open");
+        checkoutPage.fillInCheckoutForm();
+        CheckoutPage2 checkoutPage2 = checkoutPage.openCheckoutStepTwo();
+        Assert.assertTrue(checkoutPage2.isPageOpened(), "Checkout page step two is not opened");
+        CheckoutComplete checkoutComplete = checkoutPage2.clickFinishButton();
+        Assert.assertTrue(checkoutComplete.isPageOpened(), "Checkout complete page is not open");
+        inventoryPage = checkoutComplete.backToInventoryPage();
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened");
     }
 }
