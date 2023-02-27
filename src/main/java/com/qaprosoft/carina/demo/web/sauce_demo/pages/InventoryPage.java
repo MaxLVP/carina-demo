@@ -86,6 +86,33 @@ public class InventoryPage extends AbstractPage {
         selectFilter.select(3);
     }
 
+    public void changeFilterToAZ() {
+        LOGGER.info("Change filter to A-Z");
+        selectFilter.select(0);
+    }
+    public void changeFilterToZA() {
+        LOGGER.info("Change filter to Z-A");
+        selectFilter.select(1);
+    }
+
+    public boolean checkIfSortAZCorrect() {
+        List<String> names = new ArrayList<>();
+        for (ProductModel productModel: productModelList) {
+            names.add(productModel.returnProductName());
+            return names.stream().sorted().collect(Collectors.toList()).equals(names);
+        }
+        return false;
+    }
+
+    public boolean checkIfSortZACorrect() {
+        List<String> names = new ArrayList<>();
+        for (ProductModel productModel: productModelList) {
+            names.add(productModel.returnProductName());
+            return names.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()).equals(names);
+        }
+        return false;
+    }
+
     public boolean checkIfSortLoToHiCorrect() {
         List<Double> prices = new ArrayList<>();
         for (ProductModel productModel: productModelList) {

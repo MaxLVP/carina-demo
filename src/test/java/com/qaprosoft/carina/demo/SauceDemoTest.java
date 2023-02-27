@@ -92,6 +92,7 @@ public class SauceDemoTest implements IAbstractTest {
         Assert.assertEquals(inventoryPage.getNumberOfItems(), "1", "Number of items is not valid");
         CartPage cartPage = inventoryPage.openCartPage();
         Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened!");
+        Assert.assertEquals(cartPage.getItemsInCart(), 1, "Items in cart are not match with order");
         CheckoutPage checkoutPage = cartPage.openCheckoutPage();
         Assert.assertTrue(checkoutPage.isPageOpened(), "Checkout page is not open");
         checkoutPage.fillInCheckoutForm();
@@ -136,5 +137,9 @@ public class SauceDemoTest implements IAbstractTest {
         Assert.assertTrue(inventoryPage.checkIfSortLoToHiCorrect(), "Models are not filter");
         inventoryPage.changeFilterToHiLo();
         Assert.assertTrue(inventoryPage.checkIfSortHiToLoCorrect(), "Models are not filter");
+        inventoryPage.changeFilterToAZ();
+        Assert.assertTrue(inventoryPage.checkIfSortAZCorrect(), "Models are not filter");
+        inventoryPage.changeFilterToZA();
+        Assert.assertTrue(inventoryPage.checkIfSortZACorrect(), "Models are not filter");
     }
 }
