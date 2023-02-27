@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite verbose="1" name="Carina Demo Tests - Sauce Demo " >
+    <test name="Simple positive cases tests">
+        <classes>
+            <class name="com.qaprosoft.carina.demo.SauceDemoTest"/>
+        </classes>
+    </test>
+</suite>
