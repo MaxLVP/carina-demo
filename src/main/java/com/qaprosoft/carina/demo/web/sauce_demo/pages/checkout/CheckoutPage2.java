@@ -1,4 +1,4 @@
-package com.qaprosoft.carina.demo.web.sauce_demo.pages;
+package com.qaprosoft.carina.demo.web.sauce_demo.pages.checkout;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;

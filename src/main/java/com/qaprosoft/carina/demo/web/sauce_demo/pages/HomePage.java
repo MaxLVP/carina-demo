@@ -42,12 +42,10 @@ public class HomePage extends AbstractPage {
         LOGGER.info("Authorization on site");
         String[] usernames = loginText.getText().split("\n");
         LOGGER.info("Insert username");
-        usernameInput.click();
         usernameInput.type(usernames[STANDARD_USER]);
         String[] passwords = password.getText().split("\n");
         int pass = new Random().nextInt(passwords.length - 1) + 1;
         LOGGER.info("Insert password");
-        passwordInput.click();
         passwordInput.type(passwords[pass]);
         loginButton.click();
         return new InventoryPage(getDriver());
@@ -57,12 +55,10 @@ public class HomePage extends AbstractPage {
         LOGGER.info("Authorization on site");
         String[] usernames = loginText.getText().split("\n");
         LOGGER.info("Insert locked out username");
-        usernameInput.click();
         usernameInput.type(usernames[LOCKED_OUT_USER]);
         String[] passwords = password.getText().split("\n");
         int pass = new Random().nextInt(passwords.length - 1) + 1;
         LOGGER.info("Insert password");
-        passwordInput.click();
         passwordInput.type(passwords[pass]);
         loginButton.click();
     }

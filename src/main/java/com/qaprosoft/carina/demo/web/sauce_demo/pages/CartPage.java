@@ -2,6 +2,7 @@ package com.qaprosoft.carina.demo.web.sauce_demo.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.checkout.CheckoutPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -14,9 +15,6 @@ public class CartPage extends AbstractPage {
 
     @FindBy(xpath = "//button[@id='checkout']")
     private ExtendedWebElement checkoutButton;
-
-
-
 
     public CartPage(WebDriver driver) {
         super(driver);

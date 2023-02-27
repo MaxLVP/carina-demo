@@ -1,7 +1,8 @@
-package com.qaprosoft.carina.demo.web.sauce_demo.pages;
+package com.qaprosoft.carina.demo.web.sauce_demo.pages.checkout;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.web.sauce_demo.pages.InventoryPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
