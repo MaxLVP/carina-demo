@@ -79,7 +79,7 @@ public class InventoryPage extends AbstractPage {
     }
 
     public boolean isNumberOfItemsPresent() {
-        return cartItemsNumber.isElementPresent();
+        return cartItemsNumber.isElementPresent(1);
     }
 
     public CartPage openCartPage() {
