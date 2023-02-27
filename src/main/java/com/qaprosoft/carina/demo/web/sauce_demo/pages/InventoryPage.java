@@ -10,7 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InventoryPage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -26,6 +29,9 @@ public class InventoryPage extends AbstractPage {
 
     @FindBy(xpath = "//a[@class='shopping_cart_link']//span")
     private ExtendedWebElement cartItemsNumber;
+
+    @FindBy(xpath = "//select[@class = 'product_sort_container']")
+    private ExtendedWebElement selectFilter;
 
     public InventoryPage(WebDriver driver) {
         super(driver);
@@ -68,5 +74,35 @@ public class InventoryPage extends AbstractPage {
         LOGGER.info("Open cart page");
         cartPageBtn.click();
         return new CartPage(driver);
+    }
+
+    public void changeFilterToLoHi() {
+        LOGGER.info("Change filter to lower-high");
+        selectFilter.select(2);
+    }
+
+    public void changeFilterToHiLo() {
+        LOGGER.info("Change filter to high-lower");
+        selectFilter.select(3);
+    }
+
+    public boolean checkIfSortLoToHiCorrect() {
+        List<Double> prices = new ArrayList<>();
+        for (ProductModel productModel: productModelList) {
+            String price = productModel.returnProductPrice().replace("$", "");
+            prices.add(Double.valueOf(price));
+            return prices.stream().sorted().collect(Collectors.toList()).equals(prices);
+        }
+        return false;
+    }
+
+    public boolean checkIfSortHiToLoCorrect() {
+        List<Double> prices = new ArrayList<>();
+        for (ProductModel productModel: productModelList) {
+            String price = productModel.returnProductPrice().replace("$", "");
+            prices.add(Double.valueOf(price));
+            return prices.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()).equals(prices);
+        }
+        return false;
     }
 }

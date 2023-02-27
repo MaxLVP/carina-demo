@@ -124,4 +124,17 @@ public class SauceDemoTest implements IAbstractTest {
         Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
         Assert.assertEquals(inventoryPage.getNumberOfItems(), "1", "Number of items is not valid");
     }
+
+    @Test
+    public void testProductFilter() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        InventoryPage inventoryPage = homePage.authorization();
+        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is not opened!");
+        inventoryPage.changeFilterToLoHi();
+        Assert.assertTrue(inventoryPage.checkIfSortLoToHiCorrect(), "Models are not filter");
+        inventoryPage.changeFilterToHiLo();
+        Assert.assertTrue(inventoryPage.checkIfSortHiToLoCorrect(), "Models are not filter");
+    }
 }
