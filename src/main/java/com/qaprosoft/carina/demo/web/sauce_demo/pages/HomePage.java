@@ -68,7 +68,7 @@ public class HomePage extends AbstractPage {
         if (errorWindow == null) {
             return false;
         }
-        return errorWindow.isElementPresent();
+        return errorWindow.isElementPresent(1);
     }
 
     public void closeErrorDisplay() {
