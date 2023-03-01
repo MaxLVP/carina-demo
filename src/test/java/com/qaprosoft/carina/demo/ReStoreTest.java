@@ -6,9 +6,7 @@ import com.qaprosoft.carina.demo.web.re_store.models.Product;
 import com.qaprosoft.carina.demo.web.re_store.models.ProductBuilder;
 import com.qaprosoft.carina.demo.web.re_store.models.User;
 import com.qaprosoft.carina.demo.web.re_store.models.UserBuilder;
-import com.qaprosoft.carina.demo.web.re_store.pages.HomePage;
-import com.qaprosoft.carina.demo.web.re_store.pages.PersonalPage;
-import com.qaprosoft.carina.demo.web.re_store.pages.SearchPage;
+import com.qaprosoft.carina.demo.web.re_store.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -19,16 +17,16 @@ public class ReStoreTest implements IAbstractTest {
         User user = UserBuilder.getUser();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
         AuthorizationForm authorizationForm = homePage.openRegisterForm();
-        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened");
+        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened!");
         authorizationForm.registration(user);
-        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented");
+        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
         PersonalPage personalPage = homePage.openPersonalPage();
-        Assert.assertTrue(personalPage.isPageOpened(), "Personal page is not opened");
+        Assert.assertTrue(personalPage.isPageOpened(), "Personal page is not opened!");
         homePage = personalPage.logOut();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-        Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed");
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed!");
     }
 
     @Test
@@ -36,21 +34,21 @@ public class ReStoreTest implements IAbstractTest {
         User user = UserBuilder.getUser();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
         AuthorizationForm authorizationForm = homePage.openLoginForm();
-        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened");
+        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened!");
         authorizationForm.authorization(user);
-        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented");
+        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
         PersonalPage personalPage = homePage.openPersonalPage();
-        Assert.assertTrue(personalPage.isPageOpened(), "Personal page is not opened");
+        Assert.assertTrue(personalPage.isPageOpened(), "Personal page is not opened!");
         homePage = personalPage.logOut();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-        Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed");
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed!");
     }
 
     @Test
     public void testProductInfoAndOrder() {
-        Product product = ProductBuilder.getProduct();
+        Product productTest = ProductBuilder.getProduct();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
@@ -61,8 +59,45 @@ public class ReStoreTest implements IAbstractTest {
         Assert.assertTrue(homePage.isSearchButtonPresented(), "Search form is not opened!");
         homePage.openSearch();
         Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
-        SearchPage searchPage = homePage.searchProductById(product.getId());
+        SearchPage searchPage = homePage.searchProductById(productTest.getId());
         Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
+        ProductInfoPage productInfoPage = searchPage.openFirstProduct();
+        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
+        Product productFromPage = productInfoPage.getProductModel();
+        Assert.assertEquals(productTest, productFromPage, "Models are not equal!");
+    }
 
+    @Test
+    public void testFavoriteProducts() {
+        Product productTest = ProductBuilder.getProduct();
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        int numberOfProducts = homePage.getNumberOfProductsOnHomePage();
+        homePage.addAllProductsToFavorite();
+        int numberOfFavoriteProducts = homePage.getNumberOfFavoritesProducts();
+        Assert.assertEquals(numberOfProducts, numberOfFavoriteProducts, "Not all products add to favorites!");
+        FavoritePage favoritePage = homePage.openFavoritePage();
+        Assert.assertTrue(favoritePage.isPageOpened(), "Favorite page is not opened!");
+        int productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
+        Assert.assertEquals(numberOfProducts, productsOnFavoritePage, "Not all products on favorite page!");
+        favoritePage.removeFirstProductFromFavorite();
+        productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
+        Assert.assertEquals(numberOfProducts, productsOnFavoritePage + 1, "Product is not removed!");
+        getDriver().navigate().back();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        SearchPage searchPage = homePage.searchProductById(productTest.getId());
+        Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
+        ProductInfoPage productInfoPage = searchPage.openFirstProduct();
+        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
+        productInfoPage.addToFavorite();
+        numberOfFavoriteProducts = productInfoPage.getNumberOfFavoritesProducts();
+        Assert.assertEquals(numberOfProducts, numberOfFavoriteProducts, "Product is not added");
+        favoritePage = productInfoPage.openFavoritePage();
+        Assert.assertTrue(favoritePage.isPageOpened(), "Favorite page is not opened!");
+        productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
+        Assert.assertEquals(numberOfProducts, productsOnFavoritePage, "Not all products on favorite page!");
     }
 }

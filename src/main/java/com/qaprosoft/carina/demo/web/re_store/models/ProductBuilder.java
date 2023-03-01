@@ -5,10 +5,10 @@ import com.zebrunner.carina.utils.R;
 public class ProductBuilder {
 
     public static Product getProduct() {
-        String id = R.TESTDATA.get("re_store_product_id");
-        String name = R.TESTDATA.get("re_store_product_name");
-        String brand = R.TESTDATA.get("re_store_product_brand");
-        Double price = Double.valueOf(R.TESTDATA.get("re_store_product_price"));
-        return new Product(id, name, price, brand);
+        Product product = new Product();
+        product.setId(R.TESTDATA.get("re_store_product_id"));
+        product.setBrand(R.TESTDATA.get("re_store_product_brand"));
+        product.setPrice(Double.valueOf(R.TESTDATA.get("re_store_product_price")));
+        return product;
     }
 }

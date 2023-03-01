@@ -4,12 +4,14 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.web.re_store.components.AuthorizationForm;
 import com.qaprosoft.carina.demo.web.re_store.components.HeaderMenu;
+import com.qaprosoft.carina.demo.web.re_store.components.ProductModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 public class HomePage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -22,6 +24,9 @@ public class HomePage extends AbstractPage {
 
     @FindBy(xpath = "//a[contains(@href, 'login')]")
     private ExtendedWebElement loginButton;
+
+    @FindBy(xpath = "//div[contains(@class, 'js_cat_list_item') and contains(@class, 'product-slider_item')]")
+    private List<ProductModel> productsOnHomePage;
 
     @FindBy()
     private HeaderMenu headerMenu;
@@ -79,5 +84,25 @@ public class HomePage extends AbstractPage {
 
     public boolean isMenuPresented() {
         return headerMenu.isUIObjectPresent();
+    }
+
+    public Integer getNumberOfFavoritesProducts() {
+        return headerMenu.returnNumberOfFavoriteProducts();
+    }
+
+    public Integer getNumberOfProductsOnHomePage() {
+        return productsOnHomePage.size();
+    }
+
+    public void addAllProductsToFavorite() {
+        for(ProductModel productModel: productsOnHomePage) {
+            productModel.addToFavorite();
+        }
+    }
+
+    public FavoritePage openFavoritePage() {
+        LOGGER.info("Open Favorite page");
+        headerMenu.openFavoritePage();
+        return new FavoritePage(driver);
     }
 }

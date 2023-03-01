@@ -2,7 +2,7 @@ package com.qaprosoft.carina.demo.web.re_store.components;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
-import com.qaprosoft.carina.demo.web.re_store.pages.SearchPage;
+import com.qaprosoft.carina.demo.web.re_store.pages.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +22,15 @@ public class HeaderMenu extends AbstractUIObject {
     @FindBy(xpath = "//span[contains(@class, 'search_btn')]")
     private ExtendedWebElement searchButton;
 
+    @FindBy(xpath = "//a[@href='/favorite/' and contains(@class, 'page-header')]")
+    private ExtendedWebElement favoriteLink;
+
+    @FindBy(xpath = "//a[@href='/favorite/' and contains(@class, 'page-header')]//span[@class='badge']")
+    private ExtendedWebElement numberOfFavoriteProducts;
+
+    @FindBy(xpath = "//a[contains(@class, 'logo__re-store')]")
+    private ExtendedWebElement homeLink;
+
     public HeaderMenu(WebDriver driver) {
         super(driver);
     }
@@ -31,7 +40,7 @@ public class HeaderMenu extends AbstractUIObject {
     }
 
     public boolean isSearchButtonPresented() {
-        return findExtendedWebElement(By.xpath(SEARCH_BUTTON_XPATH)).isElementPresent();
+        return searchButton.isElementPresent();
     }
 
     public void openSearch() {
@@ -54,5 +63,17 @@ public class HeaderMenu extends AbstractUIObject {
     public void closeSearch() {
         LOGGER.info("Closing search");
         findExtendedWebElement(By.xpath(CLOSE_SEARCH_BUTTON_XPATH)).click();
+    }
+
+    public void openFavoritePage() {
+        favoriteLink.click();
+    }
+
+    public Integer returnNumberOfFavoriteProducts() {
+        return Integer.parseInt(numberOfFavoriteProducts.getText());
+    }
+
+    public void openHomePage() {
+        homeLink.click();
     }
 }
