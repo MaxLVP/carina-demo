@@ -2,10 +2,13 @@ package com.qaprosoft.carina.demo;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.demo.web.re_store.components.AuthorizationForm;
+import com.qaprosoft.carina.demo.web.re_store.models.Product;
+import com.qaprosoft.carina.demo.web.re_store.models.ProductBuilder;
 import com.qaprosoft.carina.demo.web.re_store.models.User;
 import com.qaprosoft.carina.demo.web.re_store.models.UserBuilder;
 import com.qaprosoft.carina.demo.web.re_store.pages.HomePage;
 import com.qaprosoft.carina.demo.web.re_store.pages.PersonalPage;
+import com.qaprosoft.carina.demo.web.re_store.pages.SearchPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -43,5 +46,23 @@ public class ReStoreTest implements IAbstractTest {
         homePage = personalPage.logOut();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
         Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed");
+    }
+
+    @Test
+    public void testProductInfoAndOrder() {
+        Product product = ProductBuilder.getProduct();
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        //Assert.assertTrue(homePage.isMenuPresented(), "Menu is not presented!");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        homePage.closeSearch();
+        Assert.assertTrue(homePage.isSearchButtonPresented(), "Search form is not opened!");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        SearchPage searchPage = homePage.searchProductById(product.getId());
+        Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
+
     }
 }

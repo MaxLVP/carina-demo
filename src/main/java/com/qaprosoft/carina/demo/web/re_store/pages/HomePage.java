@@ -3,6 +3,7 @@ package com.qaprosoft.carina.demo.web.re_store.pages;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.web.re_store.components.AuthorizationForm;
+import com.qaprosoft.carina.demo.web.re_store.components.HeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -21,6 +22,9 @@ public class HomePage extends AbstractPage {
 
     @FindBy(xpath = "//a[contains(@href, 'login')]")
     private ExtendedWebElement loginButton;
+
+    @FindBy()
+    private HeaderMenu headerMenu;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -48,5 +52,32 @@ public class HomePage extends AbstractPage {
 
     public boolean checkIfRegisterAvailable() {
         return registerButton.isElementPresent(1);
+    }
+
+    public boolean isSearchButtonPresented() {
+        return headerMenu.isSearchButtonPresented();
+    }
+
+    public SearchPage searchProductById(String value) {
+        LOGGER.info("Searching product");
+        headerMenu.typeSearch(value);
+        headerMenu.findValue();
+        return new SearchPage(driver);
+    }
+
+    public void closeSearch() {
+        headerMenu.closeSearch();
+    }
+
+    public void openSearch() {
+        headerMenu.openSearch();
+    }
+
+    public boolean isSearchFormOpen() {
+        return headerMenu.isSearchOpen();
+    }
+
+    public boolean isMenuPresented() {
+        return headerMenu.isUIObjectPresent();
     }
 }

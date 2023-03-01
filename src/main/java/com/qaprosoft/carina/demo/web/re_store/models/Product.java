@@ -1,23 +1,23 @@
 package com.qaprosoft.carina.demo.web.re_store.models;
 
 public class Product {
-    private Integer id;
+    private String id;
     private String name;
     private Double price;
     private String brand;
 
-    public Product(Integer id, String name, Double price, String brand) {
+    public Product(String id, String name, Double price, String brand) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.brand = brand;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
