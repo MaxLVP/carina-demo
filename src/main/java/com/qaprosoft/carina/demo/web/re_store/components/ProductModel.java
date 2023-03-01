@@ -24,13 +24,13 @@ public class ProductModel extends AbstractUIObject {
     private ExtendedWebElement brand;
 
     @FindBy(xpath = "//div[@class='catalog-grid-item_descr']")
-    private ExtendedWebElement name;
+    private ExtendedWebElement nameInCatalog;
+
+    @FindBy(xpath = "//div[@class='product-slider_description']")
+    private ExtendedWebElement nameInHomePage;
 
     @FindBy(xpath = "//div[contains(@class, 'catalog-grid-item_price')]//following-sibling::a")
     private ExtendedWebElement linkToProductPage;
-
-    @FindBy(xpath = "//button[contains(@class, 'js_favorite')]")
-    private ExtendedWebElement addToFavoriteButton;
 
     @FindBy(xpath = "//button[@data-gaaction='put_cart']")
     private ExtendedWebElement addToCartFromCatalogButton;
@@ -49,17 +49,8 @@ public class ProductModel extends AbstractUIObject {
     }
 
     public void addToCart() {
-        LOGGER.info("Add product " + name.getText() + " to cart");
+        LOGGER.info("Add product " + nameInCatalog.getText() + " to cart");
         addToCartFromCatalogButton.click();
     }
 
-    public void addToFavorite(){
-        LOGGER.info("Add product " + name.getText() + " to favorite");
-        addToFavoriteButton.click();
-    }
-
-    public void removeFromFavorite() {
-        LOGGER.info("Remove product " + name.getText() + " to favorite");
-        addToFavoriteButton.click();
-    }
 }

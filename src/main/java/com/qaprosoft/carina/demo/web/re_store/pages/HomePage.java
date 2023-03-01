@@ -86,23 +86,4 @@ public class HomePage extends AbstractPage {
         return headerMenu.isUIObjectPresent();
     }
 
-    public int getNumberOfFavoritesProducts() {
-        return headerMenu.returnNumberOfFavoriteProducts();
-    }
-
-    public int getNumberOfProductsOnHomePage() {
-        return productsOnHomePage.size();
-    }
-
-    public void addAllProductsToFavorite() {
-        for(ProductModel productModel: productsOnHomePage) {
-            productModel.addToFavorite();
-        }
-    }
-
-    public FavoritePage openFavoritePage() {
-        LOGGER.info("Open Favorite page");
-        headerMenu.openFavoritePage();
-        return new FavoritePage(driver);
-    }
 }

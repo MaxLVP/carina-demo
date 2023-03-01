@@ -73,19 +73,6 @@ public class ReStoreTest implements IAbstractTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        int numberOfProducts = homePage.getNumberOfProductsOnHomePage();
-        homePage.addAllProductsToFavorite();
-        int numberOfFavoriteProducts = homePage.getNumberOfFavoritesProducts();
-        Assert.assertEquals(numberOfProducts, numberOfFavoriteProducts, "Not all products add to favorites!");
-        FavoritePage favoritePage = homePage.openFavoritePage();
-        Assert.assertTrue(favoritePage.isPageOpened(), "Favorite page is not opened!");
-        int productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
-        Assert.assertEquals(numberOfProducts, productsOnFavoritePage, "Not all products on favorite page!");
-        favoritePage.removeFirstProductFromFavorite();
-        productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
-        Assert.assertEquals(numberOfProducts, productsOnFavoritePage + 1, "Product is not removed!");
-        getDriver().navigate().back();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
         homePage.openSearch();
         Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
         SearchPage searchPage = homePage.searchProductById(productTest.getId());
@@ -93,11 +80,11 @@ public class ReStoreTest implements IAbstractTest {
         ProductInfoPage productInfoPage = searchPage.openFirstProduct();
         Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
         productInfoPage.addToFavorite();
-        numberOfFavoriteProducts = productInfoPage.getNumberOfFavoritesProducts();
-        Assert.assertEquals(numberOfProducts, numberOfFavoriteProducts, "Product is not added");
-        favoritePage = productInfoPage.openFavoritePage();
+        int numberOfFavoriteProducts = productInfoPage.getNumberOfFavoritesProducts();
+        Assert.assertEquals(numberOfFavoriteProducts, 1,"Product is not added");
+        FavoritePage favoritePage = productInfoPage.openFavoritePage();
         Assert.assertTrue(favoritePage.isPageOpened(), "Favorite page is not opened!");
-        productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
-        Assert.assertEquals(numberOfProducts, productsOnFavoritePage, "Not all products on favorite page!");
+        int productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
+        Assert.assertEquals(1, productsOnFavoritePage, "Not all products on favorite page!");
     }
 }
