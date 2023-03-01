@@ -93,4 +93,17 @@ public class HomePage extends AbstractPage {
         return  new BaileyPage(driver);
     }
 
+    public boolean isAnyProductInCart() {
+        return headerMenu.isAnyProductInCart();
+    }
+
+    public int getNumberOfProductsInCart() {
+        return headerMenu.returnNumberOfProductsInCart();
+    }
+
+    public CartPage openCartPage() {
+        headerMenu.openCartPage();
+        return new CartPage(driver);
+    }
+
 }

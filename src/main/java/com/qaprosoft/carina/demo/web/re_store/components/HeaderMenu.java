@@ -37,6 +37,9 @@ public class HeaderMenu extends AbstractUIObject {
     @FindBy(xpath = "//a[@data-gaaction='into_cart']//span[contains(@class, 'badge')]")
     private ExtendedWebElement productNumberInCart;
 
+    @FindBy(xpath = "//div[contains(@class, 'js_small_basket')]")
+    private ExtendedWebElement cartPageLink;
+
     public HeaderMenu(WebDriver driver) {
         super(driver);
     }
@@ -89,5 +92,13 @@ public class HeaderMenu extends AbstractUIObject {
 
     public int returnNumberOfProductsInCart() {
         return Integer.parseInt(productNumberInCart.getText());
+    }
+
+    public boolean isAnyProductInCart() {
+        return productNumberInCart.isElementPresent(1);
+    }
+
+    public void openCartPage() {
+        cartPageLink.click();
     }
 }

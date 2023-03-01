@@ -108,7 +108,44 @@ public class ReStoreTest implements IAbstractTest {
         double priceOfAllVinegars = vinegarPage.getPriceOfAllVinegars();
         //vinegarPage.addAllVinegarsToCart();
         //Assert.assertEquals(numberOfVinegars, vinegarPage.getNumberOfProductsInCart(), "Not all items added to cart");
+    }
 
-
+    @Test
+    public void testCartLogout() {
+        Product productTest = ProductBuilder.getProduct();
+        User user = UserBuilder.getUser();
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        AuthorizationForm authorizationForm = homePage.openLoginForm();
+        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened!");
+        authorizationForm.authorization(user);
+        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        SearchPage searchPage = homePage.searchProductById(productTest.getId());
+        Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
+        ProductInfoPage productInfoPage = searchPage.openFirstProduct();
+        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
+        productInfoPage.addToCart();
+        int productsInCart = productInfoPage.getNumbersOfProductsInCart();
+        Assert.assertEquals(productsInCart, 1, "Product is not added to cart!");
+        homePage = productInfoPage.openHomePage();
+        PersonalPage personalPage = homePage.openPersonalPage();
+        Assert.assertTrue(personalPage.isPageOpened(), "Personal page is not opened!");
+        homePage = personalPage.logOut();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed!");
+        Assert.assertFalse(homePage.isAnyProductInCart(), "There is still product in cart");
+        authorizationForm = homePage.openLoginForm();
+        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened!");
+        authorizationForm.authorization(user);
+        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
+        Assert.assertEquals(homePage.getNumberOfProductsInCart(), 1, "Product is disappeared from cart!");
+        CartPage cartPage = homePage.openCartPage();
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened");
+        cartPage.removeFirstItem();
+        homePage = cartPage.openHomePage();
+        Assert.assertFalse(homePage.isAnyProductInCart(), "Product is not removed from cart!");
     }
 }

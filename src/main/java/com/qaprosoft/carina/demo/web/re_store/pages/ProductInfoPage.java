@@ -82,7 +82,7 @@ public class ProductInfoPage extends AbstractPage {
         return product;
     }
 
-    public Integer getNumberOfFavoritesProducts() {
+    public int getNumberOfFavoritesProducts() {
         return headerMenu.returnNumberOfFavoriteProducts();
     }
 
@@ -95,5 +95,14 @@ public class ProductInfoPage extends AbstractPage {
     public void addToCart() {
         LOGGER.info("Add product " + getProductName() + " to cart");
         addToCart.click();
+    }
+
+    public int getNumbersOfProductsInCart() {
+        return headerMenu.returnNumberOfProductsInCart();
+    }
+
+    public HomePage openHomePage() {
+        headerMenu.openHomePage();
+        return new HomePage(driver);
     }
 }
