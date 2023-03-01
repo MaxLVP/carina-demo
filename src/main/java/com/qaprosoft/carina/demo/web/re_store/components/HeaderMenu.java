@@ -31,6 +31,12 @@ public class HeaderMenu extends AbstractUIObject {
     @FindBy(xpath = "//a[contains(@class, 'logo__re-store')]")
     private ExtendedWebElement homeLink;
 
+    @FindBy(xpath = "//a[contains(@href, 'bakaleya') and contains(@class, 'page-header')]")
+    private ExtendedWebElement bakaleyaPageLink;
+
+    @FindBy(xpath = "//a[@data-gaaction='into_cart']//span[contains(@class, 'badge')]")
+    private ExtendedWebElement productNumberInCart;
+
     public HeaderMenu(WebDriver driver) {
         super(driver);
     }
@@ -69,11 +75,19 @@ public class HeaderMenu extends AbstractUIObject {
         favoriteLink.click();
     }
 
-    public Integer returnNumberOfFavoriteProducts() {
+    public int returnNumberOfFavoriteProducts() {
         return Integer.parseInt(numberOfFavoriteProducts.getText());
     }
 
     public void openHomePage() {
         homeLink.click();
+    }
+
+    public void openBakaleya() {
+        bakaleyaPageLink.click();
+    }
+
+    public int returnNumberOfProductsInCart() {
+        return Integer.parseInt(productNumberInCart.getText());
     }
 }

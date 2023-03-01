@@ -17,7 +17,7 @@ public class FavoritePage extends AbstractPage {
         setPageAbsoluteURL("https://re-store.by/favorite/");
     }
 
-    public Integer getNumberOfFavoriteProducts() {
+    public int getNumberOfFavoriteProducts() {
         return favoriteProducts.size();
     }
 

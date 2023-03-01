@@ -32,6 +32,9 @@ public class ProductModel extends AbstractUIObject {
     @FindBy(xpath = "//button[contains(@class, 'js_favorite')]")
     private ExtendedWebElement addToFavoriteButton;
 
+    @FindBy(xpath = "//button[@data-gaaction='put_cart']")
+    private ExtendedWebElement addToCartFromCatalogButton;
+
     public ProductModel(WebDriver driver) {
         super(driver);
     }
@@ -43,6 +46,11 @@ public class ProductModel extends AbstractUIObject {
     public ProductInfoPage openProductInfoPage() {
         linkToProductPage.click();
         return new ProductInfoPage(driver);
+    }
+
+    public void addToCart() {
+        LOGGER.info("Add product " + name.getText() + " to cart");
+        addToCartFromCatalogButton.click();
     }
 
     public void addToFavorite(){

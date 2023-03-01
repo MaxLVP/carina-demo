@@ -86,11 +86,11 @@ public class HomePage extends AbstractPage {
         return headerMenu.isUIObjectPresent();
     }
 
-    public Integer getNumberOfFavoritesProducts() {
+    public int getNumberOfFavoritesProducts() {
         return headerMenu.returnNumberOfFavoriteProducts();
     }
 
-    public Integer getNumberOfProductsOnHomePage() {
+    public int getNumberOfProductsOnHomePage() {
         return productsOnHomePage.size();
     }
 
