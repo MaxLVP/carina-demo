@@ -7,6 +7,8 @@ import com.qaprosoft.carina.demo.web.re_store.models.ProductBuilder;
 import com.qaprosoft.carina.demo.web.re_store.models.User;
 import com.qaprosoft.carina.demo.web.re_store.models.UserBuilder;
 import com.qaprosoft.carina.demo.web.re_store.pages.*;
+import com.qaprosoft.carina.demo.web.re_store.pages.catalog.BaileyPage;
+import com.qaprosoft.carina.demo.web.re_store.pages.catalog.VinegarPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -86,5 +88,27 @@ public class ReStoreTest implements IAbstractTest {
         Assert.assertTrue(favoritePage.isPageOpened(), "Favorite page is not opened!");
         int productsOnFavoritePage = favoritePage.getNumberOfFavoriteProducts();
         Assert.assertEquals(1, productsOnFavoritePage, "Not all products on favorite page!");
+    }
+
+    @Test
+    public void testAddProductsToCart() {
+        User user = UserBuilder.getUser();
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        AuthorizationForm authorizationForm = homePage.openLoginForm();
+        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened!");
+        authorizationForm.authorization(user);
+        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
+        BaileyPage baileyPage = homePage.openBaileyPage();
+        Assert.assertTrue(baileyPage.isPageOpened(), "Bailey page is not opened!");
+        VinegarPage vinegarPage = baileyPage.openVinegarPage();
+        Assert.assertTrue(vinegarPage.isPageOpened(), "Vinegar catalog is not opened");
+        int numberOfVinegars = vinegarPage.returnNumberOfProductsOnPage();
+        double priceOfAllVinegars = vinegarPage.getPriceOfAllVinegars();
+        //vinegarPage.addAllVinegarsToCart();
+        //Assert.assertEquals(numberOfVinegars, vinegarPage.getNumberOfProductsInCart(), "Not all items added to cart");
+
+
     }
 }

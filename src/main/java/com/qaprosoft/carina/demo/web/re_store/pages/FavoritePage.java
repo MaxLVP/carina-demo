@@ -20,8 +20,4 @@ public class FavoritePage extends AbstractPage {
     public int getNumberOfFavoriteProducts() {
         return favoriteProducts.size();
     }
-
-    public void removeFirstProductFromFavorite() {
-        favoriteProducts.get(0).removeFromFavorite();
-    }
 }

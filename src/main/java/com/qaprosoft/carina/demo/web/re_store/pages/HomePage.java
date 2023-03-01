@@ -5,6 +5,7 @@ import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.web.re_store.components.AuthorizationForm;
 import com.qaprosoft.carina.demo.web.re_store.components.HeaderMenu;
 import com.qaprosoft.carina.demo.web.re_store.components.ProductModel;
+import com.qaprosoft.carina.demo.web.re_store.pages.catalog.BaileyPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class HomePage extends AbstractPage {
     @FindBy(xpath = "//div[contains(@class, 'js_cat_list_item') and contains(@class, 'product-slider_item')]")
     private List<ProductModel> productsOnHomePage;
 
-    @FindBy()
+    @FindBy(xpath = "//div[contains(@class, 'page-header_middle ')]")
     private HeaderMenu headerMenu;
 
     public HomePage(WebDriver driver) {
@@ -84,6 +85,12 @@ public class HomePage extends AbstractPage {
 
     public boolean isMenuPresented() {
         return headerMenu.isUIObjectPresent();
+    }
+
+    public BaileyPage openBaileyPage() {
+        LOGGER.info("Open catalog of bailey");
+        headerMenu.openBakaleya();
+        return  new BaileyPage(driver);
     }
 
 }

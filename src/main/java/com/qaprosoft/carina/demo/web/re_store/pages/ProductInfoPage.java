@@ -36,7 +36,10 @@ public class ProductInfoPage extends AbstractPage {
     @FindBy(xpath = "//div[@type='button' and contains(@class, 'to-fav')]")
     private ExtendedWebElement addToFavoriteButton;
 
-    @FindBy()
+    @FindBy(xpath = "//button[contains(@class, 'orderButton_submit')]")
+    private ExtendedWebElement addToCart;
+
+    @FindBy(xpath = "//div[contains(@class, 'page-header_middle ')]")
     private HeaderMenu headerMenu;
 
     public ProductInfoPage(WebDriver driver) {
@@ -58,7 +61,6 @@ public class ProductInfoPage extends AbstractPage {
     public Double getProductPrice() {
         LOGGER.info("Get product price from page");
         return Double.valueOf(strongPrice.getText() + "." + smallPrice.getText());
-
     }
 
     public String getProductName() {
@@ -88,5 +90,10 @@ public class ProductInfoPage extends AbstractPage {
         LOGGER.info("Open favorite page");
         headerMenu.openFavoritePage();
         return  new FavoritePage(driver);
+    }
+
+    public void addToCart() {
+        LOGGER.info("Add product " + getProductName() + " to cart");
+        addToCart.click();
     }
 }

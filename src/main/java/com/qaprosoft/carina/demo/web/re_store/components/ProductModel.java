@@ -14,25 +14,25 @@ import java.lang.invoke.MethodHandles;
 public class ProductModel extends AbstractUIObject {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    @FindBy(xpath = "//div[@class='catalog-price_inner']//small")
+    @FindBy(xpath = ".//div[@class='catalog-price_inner']//small")
     private ExtendedWebElement smallPrice;
 
-    @FindBy(xpath = "//div[@class='catalog-price_inner']//strong")
+    @FindBy(xpath = ".//div[@class='catalog-price_inner']//strong")
     private ExtendedWebElement strongPrice;
 
-    @FindBy(xpath = "//div[@class='catalog-grid-item_title']")
+    @FindBy(xpath = ".//div[@class='catalog-grid-item_title']")
     private ExtendedWebElement brand;
 
-    @FindBy(xpath = "//div[@class='catalog-grid-item_descr']")
+    @FindBy(xpath = ".//div[@class='catalog-grid-item_descr']")
     private ExtendedWebElement nameInCatalog;
 
-    @FindBy(xpath = "//div[@class='product-slider_description']")
+    @FindBy(xpath = ".//div[@class='product-slider_description']")
     private ExtendedWebElement nameInHomePage;
 
-    @FindBy(xpath = "//div[contains(@class, 'catalog-grid-item_price')]//following-sibling::a")
+    @FindBy(xpath = ".//div[contains(@class, 'catalog-grid-item_price')]//following-sibling::a")
     private ExtendedWebElement linkToProductPage;
 
-    @FindBy(xpath = "//button[@data-gaaction='put_cart']")
+    @FindBy(xpath = ".//button[@data-gaaction='put_cart']")
     private ExtendedWebElement addToCartFromCatalogButton;
 
     public ProductModel(WebDriver driver) {
@@ -53,4 +53,7 @@ public class ProductModel extends AbstractUIObject {
         addToCartFromCatalogButton.click();
     }
 
+    public double returnPriceOfProduct() {
+        return Double.parseDouble(strongPrice.getText() + "." + smallPrice.getText());
+    }
 }
