@@ -14,9 +14,6 @@ import java.lang.invoke.MethodHandles;
 
 public class HeaderMenu extends AbstractUIObject {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    private static final String SEARCH_INPUT_XPATH = "//input[contains(@class, 'input__search')]";
-    private static final String CLOSE_SEARCH_BUTTON_XPATH = "//button[contains(@class, 'btn__close')]";
-    private static final String FIND_BUTTON_XPATH = "//button[contains(@class, 'btn-search')]";
 
     @FindBy(xpath = "//span[contains(@class, 'search_btn')]")
     private ExtendedWebElement searchButton;
@@ -41,6 +38,15 @@ public class HeaderMenu extends AbstractUIObject {
 
     @FindBy(xpath = "//li[contains(@class, 'header-search')]")
     private SearchForm searchForm;
+
+    @FindBy(xpath = "//a[contains(@href, 'payment') and contains(@class, 'page-header')]")
+    private ExtendedWebElement paymentPageLink;
+
+    @FindBy(xpath = "//a[contains(@href, 'delivery') and contains(@class, 'page-header-mid')]")
+    private ExtendedWebElement deliveryPageLink;
+
+    @FindBy(xpath = "//a[contains(@href, 'recipes') and contains(@class, 'page-header')]")
+    private ExtendedWebElement recipesPageLink;
 
     public HeaderMenu(WebDriver driver) {
         super(driver);
@@ -101,5 +107,17 @@ public class HeaderMenu extends AbstractUIObject {
 
     public void openCartPage() {
         cartPageLink.click();
+    }
+
+    public void openPaymentPage() {
+        paymentPageLink.click();
+    }
+
+    public void openDeliveryPage() {
+        deliveryPageLink.click();
+    }
+
+    public void openRecipesPage() {
+        recipesPageLink.click();
     }
 }

@@ -102,8 +102,27 @@ public class HomePage extends AbstractPage {
     }
 
     public CartPage openCartPage() {
+        LOGGER.info("Open cart page");
         headerMenu.openCartPage();
         return new CartPage(driver);
+    }
+
+    public PaymentPage openPaymentPage() {
+        LOGGER.info("Open payment page");
+        headerMenu.openPaymentPage();
+        return new PaymentPage(driver);
+    }
+
+    public DeliveryPage openDeliveryPage() {
+        LOGGER.info("Open delivery page");
+        headerMenu.openDeliveryPage();
+        return new DeliveryPage(driver);
+    }
+
+    public RecipePage openRecipePage() {
+        LOGGER.info("Open recipe page");
+        headerMenu.openRecipesPage();
+        return new RecipePage(driver);
     }
 
 }

@@ -11,6 +11,7 @@ import com.qaprosoft.carina.demo.web.re_store.pages.catalog.BaileyPage;
 import com.qaprosoft.carina.demo.web.re_store.pages.catalog.VinegarPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class ReStoreTest implements IAbstractTest {
 
@@ -169,5 +170,21 @@ public class ReStoreTest implements IAbstractTest {
         cartPage.removeFirstItem();
         homePage = cartPage.openHomePage();
         Assert.assertFalse(homePage.isAnyProductInCart(), "Product is not removed from cart!");
+    }
+
+    @Test
+    public void testPagesFromMenu() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        Assert.assertTrue(homePage.isMenuPresented(), "Menu is not presented!");
+        PaymentPage paymentPage = homePage.openPaymentPage();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(paymentPage.isPageOpened(), "Payment page is not opened!");
+        DeliveryPage deliveryPage = homePage.openDeliveryPage();
+        softAssert.assertTrue(deliveryPage.isPageOpened(), "Delivery page is not opened!");
+        RecipePage recipePage = homePage.openRecipePage();
+        softAssert.assertTrue(recipePage.isPageOpened(), "Recipe page is not opened!");
+        softAssert.assertAll();
     }
 }
