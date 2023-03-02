@@ -25,6 +25,8 @@
             <class name="com.qaprosoft.carina.demo.ReStoreTest">
                 <methods>
                     <include name="testAuthorization"/>
+                    <include name="testPagesFromMenu"/>
+                    <include name="testBuyProductsWithRecipe"/>
                 </methods>
             </class>
         </classes>

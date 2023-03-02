@@ -3,6 +3,7 @@ package com.qaprosoft.carina.demo.web.re_store.pages;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.PageOpeningStrategy;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.utils.StringUtils;
 import com.qaprosoft.carina.demo.web.re_store.components.HeaderMenu;
 import com.qaprosoft.carina.demo.web.re_store.models.Product;
 import org.openqa.selenium.WebDriver;
@@ -60,7 +61,7 @@ public class ProductInfoPage extends AbstractPage {
 
     public Double getProductPrice() {
         LOGGER.info("Get product price from page");
-        return Double.valueOf(strongPrice.getText() + "." + smallPrice.getText());
+        return StringUtils.parsePrice(strongPrice.getText(), smallPrice.getText());
     }
 
     public String getProductName() {

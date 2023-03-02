@@ -2,6 +2,7 @@ package com.qaprosoft.carina.demo.web.re_store.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.utils.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -24,6 +25,9 @@ public class CartPage extends AbstractPage {
     @FindBy(xpath = "//a[contains(@class, 'logo-wrap')]")
     private ExtendedWebElement homeLink;
 
+    @FindBy(xpath = "//a[contains(@href, 'login')]")
+    private ExtendedWebElement loginButton;
+
     public CartPage(WebDriver driver) {
         super(driver);
         setPageAbsoluteURL("https://re-store.by/order/");
@@ -31,7 +35,7 @@ public class CartPage extends AbstractPage {
 
     public double getAllPrice() {
         LOGGER.info("Get all price from order");
-        return Double.parseDouble(strongPrice.getText() + "." + smallPrice.getText());
+        return StringUtils.parsePrice(strongPrice.getText(), smallPrice.getText());
     }
 
     public void removeFirstItem() {
@@ -48,4 +52,6 @@ public class CartPage extends AbstractPage {
     public boolean isRemoveButtonDisplayed() {
         return removeButton.isElementPresent(1);
     }
+
+    public boolean isLoginButtonDisplayed() { return loginButton.isElementPresent(1); }
 }

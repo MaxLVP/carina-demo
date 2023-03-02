@@ -2,6 +2,7 @@ package com.qaprosoft.carina.demo.web.re_store.components;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.qaprosoft.carina.demo.utils.StringUtils;
 import com.qaprosoft.carina.demo.web.re_store.pages.ProductInfoPage;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -54,6 +55,6 @@ public class ProductModel extends AbstractUIObject {
     }
 
     public double returnPriceOfProduct() {
-        return Double.parseDouble(strongPrice.getText() + "." + smallPrice.getText());
+        return StringUtils.parsePrice(strongPrice.getText(), smallPrice.getText());
     }
 }

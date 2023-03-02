@@ -9,6 +9,7 @@ import com.qaprosoft.carina.demo.web.re_store.models.UserBuilder;
 import com.qaprosoft.carina.demo.web.re_store.pages.*;
 import com.qaprosoft.carina.demo.web.re_store.pages.catalog.BaileyPage;
 import com.qaprosoft.carina.demo.web.re_store.pages.catalog.VinegarPage;
+import com.qaprosoft.carina.demo.web.re_store.pages.recipes.RecipeInfoPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -186,5 +187,20 @@ public class ReStoreTest implements IAbstractTest {
         RecipePage recipePage = homePage.openRecipePage();
         softAssert.assertTrue(recipePage.isPageOpened(), "Recipe page is not opened!");
         softAssert.assertAll();
+    }
+
+    @Test
+    public void testBuyProductsWithRecipe() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        Assert.assertTrue(homePage.isMenuPresented(), "Menu is not presented!");
+        RecipePage recipePage = homePage.openRecipePage();
+        Assert.assertTrue(recipePage.isPageOpened(), "Recipe page is not opened!");
+        RecipeInfoPage recipeInfoPage = recipePage.openRecipeInfoPage();
+        Assert.assertTrue(recipeInfoPage.isPageOpened(), "Recipe page is not opened!");
+        CartPage cartPage = recipeInfoPage.buyIngredients();
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened");
+        Assert.assertFalse(cartPage.isLoginButtonDisplayed(), "You are log in in system");
     }
 }
