@@ -2,11 +2,11 @@ package com.qaprosoft.carina.demo.web.re_store.components;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
-import com.qaprosoft.carina.demo.web.re_store.pages.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,6 @@ public class HeaderMenu extends AbstractUIObject {
     private static final String SEARCH_INPUT_XPATH = "//input[contains(@class, 'input__search')]";
     private static final String CLOSE_SEARCH_BUTTON_XPATH = "//button[contains(@class, 'btn__close')]";
     private static final String FIND_BUTTON_XPATH = "//button[contains(@class, 'btn-search')]";
-    private static final String SEARCH_BUTTON_XPATH = "//span[contains(@class, 'search_btn')]";
 
     @FindBy(xpath = "//span[contains(@class, 'search_btn')]")
     private ExtendedWebElement searchButton;
@@ -40,6 +39,9 @@ public class HeaderMenu extends AbstractUIObject {
     @FindBy(xpath = "//div[contains(@class, 'js_small_basket')]")
     private ExtendedWebElement cartPageLink;
 
+    @FindBy(xpath = "//li[contains(@class, 'header-search')]")
+    private SearchForm searchForm;
+
     public HeaderMenu(WebDriver driver) {
         super(driver);
     }
@@ -56,22 +58,20 @@ public class HeaderMenu extends AbstractUIObject {
         LOGGER.info("Opening search");
         searchButton.click();
     }
-
     public void typeSearch(String value) {
-        findExtendedWebElement(By.xpath(SEARCH_INPUT_XPATH)).type(value);
+        searchForm.typeSearch(value);
     }
 
     public boolean isSearchOpen() {
-        return findExtendedWebElement(By.xpath(SEARCH_INPUT_XPATH)).isElementPresent();
+        return searchForm.isSearchOpen();
     }
 
     public void findValue() {
-        findExtendedWebElement(By.xpath(FIND_BUTTON_XPATH)).click();
+        searchForm.findValue();
     }
 
     public void closeSearch() {
-        LOGGER.info("Closing search");
-        findExtendedWebElement(By.xpath(CLOSE_SEARCH_BUTTON_XPATH)).click();
+        searchForm.closeSearch();
     }
 
     public void openFavoritePage() {
@@ -79,6 +79,7 @@ public class HeaderMenu extends AbstractUIObject {
     }
 
     public int returnNumberOfFavoriteProducts() {
+        waitUntil(ExpectedConditions.textToBePresentInElement(numberOfFavoriteProducts.getElement(), "regex:[//d]"), 1);
         return Integer.parseInt(numberOfFavoriteProducts.getText());
     }
 
