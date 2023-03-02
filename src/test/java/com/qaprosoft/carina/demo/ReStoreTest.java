@@ -49,12 +49,12 @@ public class ReStoreTest implements IAbstractTest {
     }
 
     @Test
-    public void testProductInfoAndOrder() {
+    public void testProductInfo() {
         Product productTest = ProductBuilder.getProduct();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        //Assert.assertTrue(homePage.isMenuPresented(), "Menu is not presented!");
+        Assert.assertTrue(homePage.isMenuPresented(), "Menu is not presented!");
         homePage.openSearch();
         Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
         homePage.closeSearch();
@@ -93,6 +93,7 @@ public class ReStoreTest implements IAbstractTest {
     @Test
     public void testAddProductsToCart() {
         User user = UserBuilder.getUser();
+        Product productTest = ProductBuilder.getProduct();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
@@ -100,14 +101,35 @@ public class ReStoreTest implements IAbstractTest {
         Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened!");
         authorizationForm.authorization(user);
         Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        SearchPage searchPage = homePage.searchProductById(productTest.getId());
+        Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
+        ProductInfoPage productInfoPage = searchPage.openFirstProduct();
+        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
+        productInfoPage.addToCart();
+        double sum_of_first_product = productInfoPage.getProductPrice();
+        int productsInCart = productInfoPage.getNumbersOfProductsInCart();
+        Assert.assertEquals(productsInCart, 1, "Product is not added to cart!");
+        homePage = productInfoPage.openHomePage();
         BaileyPage baileyPage = homePage.openBaileyPage();
         Assert.assertTrue(baileyPage.isPageOpened(), "Bailey page is not opened!");
         VinegarPage vinegarPage = baileyPage.openVinegarPage();
         Assert.assertTrue(vinegarPage.isPageOpened(), "Vinegar catalog is not opened");
-        int numberOfVinegars = vinegarPage.returnNumberOfProductsOnPage();
-        double priceOfAllVinegars = vinegarPage.getPriceOfAllVinegars();
-        //vinegarPage.addAllVinegarsToCart();
-        //Assert.assertEquals(numberOfVinegars, vinegarPage.getNumberOfProductsInCart(), "Not all items added to cart");
+        productInfoPage = vinegarPage.openFirstVinegarPage();
+        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened");
+        productInfoPage.addToCart();
+        double sum_of_second_product = productInfoPage.getProductPrice();
+        productsInCart = productInfoPage.getNumbersOfProductsInCart();
+        Assert.assertEquals(productsInCart, 2, "Product is not added to cart!");
+        homePage = productInfoPage.openHomePage();
+        CartPage cartPage = homePage.openCartPage();
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened!");
+        Assert.assertEquals(sum_of_first_product + sum_of_second_product, cartPage.getAllPrice(), "Total sum of order is not correct!");
+        cartPage.removeFirstItem();
+        Assert.assertEquals(sum_of_first_product, cartPage.getAllPrice(), "Total sum of order is not correct");
+        cartPage.removeFirstItem();
+        Assert.assertFalse(cartPage.isRemoveButtonDisplayed(), "Items are not deleted!");
     }
 
     @Test

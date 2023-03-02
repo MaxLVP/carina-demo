@@ -31,7 +31,7 @@ public class CartPage extends AbstractPage {
 
     public double getAllPrice() {
         LOGGER.info("Get all price from order");
-        return Double.parseDouble(strongPrice + "." + smallPrice);
+        return Double.parseDouble(strongPrice.getText() + "." + smallPrice.getText());
     }
 
     public void removeFirstItem() {
@@ -43,5 +43,9 @@ public class CartPage extends AbstractPage {
         LOGGER.info("Return to home page");
         homeLink.click();
         return new HomePage(driver);
+    }
+
+    public boolean isRemoveButtonDisplayed() {
+        return removeButton.isElementPresent(1);
     }
 }
