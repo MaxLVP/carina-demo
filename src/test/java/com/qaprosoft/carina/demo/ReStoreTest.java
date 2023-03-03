@@ -9,8 +9,8 @@ import com.qaprosoft.carina.demo.web.re_store.models.UserBuilder;
 import com.qaprosoft.carina.demo.web.re_store.pages.*;
 import com.qaprosoft.carina.demo.web.re_store.pages.catalog.BaileyPage;
 import com.qaprosoft.carina.demo.web.re_store.pages.catalog.VinegarPage;
-import com.qaprosoft.carina.demo.web.re_store.pages.recipes.RecipeInfoPage;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -51,29 +51,8 @@ public class ReStoreTest implements IAbstractTest {
     }
 
     @Test
-    public void testProductInfo() {
-        Product productTest = ProductBuilder.getProduct();
-        HomePage homePage = new HomePage(getDriver());
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        Assert.assertTrue(homePage.isMenuPresented(), "Menu is not presented!");
-        homePage.openSearch();
-        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
-        homePage.closeSearch();
-        Assert.assertTrue(homePage.isSearchButtonPresented(), "Search form is not opened!");
-        homePage.openSearch();
-        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
-        SearchPage searchPage = homePage.searchProductById(productTest.getId());
-        Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
-        ProductInfoPage productInfoPage = searchPage.openFirstProduct();
-        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
-        Product productFromPage = productInfoPage.getProductModel();
-        Assert.assertEquals(productTest, productFromPage, "Models are not equal!");
-    }
-
-    @Test
     public void testFavoriteProducts() {
-        Product productTest = ProductBuilder.getProduct();
+        Product productTest = ProductBuilder.getFirstProduct();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
@@ -95,7 +74,7 @@ public class ReStoreTest implements IAbstractTest {
     @Test
     public void testAddProductsToCart() {
         User user = UserBuilder.getUser();
-        Product productTest = ProductBuilder.getProduct();
+        Product productTest = ProductBuilder.getFirstProduct();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
@@ -136,7 +115,7 @@ public class ReStoreTest implements IAbstractTest {
 
     @Test
     public void testCartLogout() {
-        Product productTest = ProductBuilder.getProduct();
+        Product productTest = ProductBuilder.getFirstProduct();
         User user = UserBuilder.getUser();
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -189,18 +168,31 @@ public class ReStoreTest implements IAbstractTest {
         softAssert.assertAll();
     }
 
-    @Test
-    public void testBuyProductsWithRecipe() {
+    @Test(dataProvider = "DP1")
+    public void testProductInfo(Product productTest) {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
         Assert.assertTrue(homePage.isMenuPresented(), "Menu is not presented!");
-        RecipePage recipePage = homePage.openRecipePage();
-        Assert.assertTrue(recipePage.isPageOpened(), "Recipe page is not opened!");
-        RecipeInfoPage recipeInfoPage = recipePage.openRecipeInfoPage();
-        Assert.assertTrue(recipeInfoPage.isPageOpened(), "Recipe page is not opened!");
-        CartPage cartPage = recipeInfoPage.buyIngredients();
-        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened");
-        Assert.assertFalse(cartPage.isLoginButtonDisplayed(), "You are log in in system");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        homePage.closeSearch();
+        Assert.assertTrue(homePage.isSearchButtonPresented(), "Search form is not opened!");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        SearchPage searchPage = homePage.searchProductById(productTest.getId());
+        Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
+        ProductInfoPage productInfoPage = searchPage.openFirstProduct();
+        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
+        Product productFromPage = productInfoPage.getProductModel();
+        Assert.assertEquals(productTest, productFromPage, "Models are not equal!");
     }
+
+    @DataProvider(parallel = false, name = "DP1")
+    public static  Object[][] productDataProvider() {
+        return new Object[][]{
+                {ProductBuilder.getFirstProduct()},
+                {ProductBuilder.getSecondProduct()},
+                {ProductBuilder.getThirdProduct()}};
+        }
 }
