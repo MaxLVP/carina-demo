@@ -45,6 +45,8 @@ public class ReStoreTest implements IAbstractTest {
         Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
         PersonalPage personalPage = homePage.openPersonalPage();
         Assert.assertTrue(personalPage.isPageOpened(), "Personal page is not opened!");
+        User personalUser = personalPage.getUserFromPage();
+        Assert.assertEquals(user, personalUser, "User info is not correct!");
         homePage = personalPage.logOut();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
         Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed!");
