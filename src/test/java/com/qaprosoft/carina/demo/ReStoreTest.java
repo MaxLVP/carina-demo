@@ -71,6 +71,31 @@ public class ReStoreTest implements IAbstractTest {
         Assert.assertEquals(1, productsOnFavoritePage, "Not all products on favorite page!");
     }
 
+    @Test(dataProvider = "DP1")
+    public void testFavoriteProductWithLogin(Product productTest) {
+        User user = UserBuilder.getUser();
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        homePage.openSearch();
+        Assert.assertTrue(homePage.isSearchFormOpen(), "search form is not opened!");
+        SearchPage searchPage = homePage.searchProductById(productTest.getId());
+        Assert.assertTrue(searchPage.isPageOpened(), "search page is not opened!");
+        ProductInfoPage productInfoPage = searchPage.openFirstProduct();
+        Assert.assertTrue(productInfoPage.isPageOpened(), "Product info page is not opened!");
+        productInfoPage.addToFavorite();
+        int numberOfFavoriteProducts = productInfoPage.getNumberOfFavoritesProducts();
+        Assert.assertEquals(numberOfFavoriteProducts, 1,"Product is not added");
+        homePage = productInfoPage.openHomePage();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        AuthorizationForm authorizationForm = homePage.openLoginForm();
+        Assert.assertTrue(authorizationForm.isUIObjectPresent(), "Authorization form is not opened!");
+        authorizationForm.authorization(user);
+        Assert.assertTrue(homePage.checkIfPersonalPresented(), "Personal link is not presented!");
+        numberOfFavoriteProducts = homePage.getNumberOfFavoritesProducts();
+        Assert.assertEquals(numberOfFavoriteProducts, 1,"Product is disappear");
+    }
+
     @Test
     public void testAddProductsToCart() {
         User user = UserBuilder.getUser();

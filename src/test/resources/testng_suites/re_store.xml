@@ -16,6 +16,7 @@
                 <methods>
                     <include name="testProductInfo()"/>
                     <include name="testFavoriteProducts"/>
+                    <include name="testFavoriteProductWithLogin" />
                 </methods>
             </class>
         </classes>
@@ -26,7 +27,6 @@
                 <methods>
                     <include name="testAuthorization"/>
                     <include name="testPagesFromMenu"/>
-                    <include name="testBuyProductsWithRecipe"/>
                 </methods>
             </class>
         </classes>

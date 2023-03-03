@@ -101,6 +101,16 @@ public class HomePage extends AbstractPage {
         return headerMenu.returnNumberOfProductsInCart();
     }
 
+    public int getNumberOfFavoritesProducts() {
+        return headerMenu.returnNumberOfFavoriteProducts();
+    }
+
+    public FavoritePage openFavoritePage() {
+        LOGGER.info("Open favorite page");
+        headerMenu.openFavoritePage();
+        return  new FavoritePage(driver);
+    }
+
     public CartPage openCartPage() {
         LOGGER.info("Open cart page");
         headerMenu.openCartPage();
