@@ -54,9 +54,8 @@ public class ReStoreTest implements IAbstractTest {
         Assert.assertTrue(homePage.checkIfRegisterAvailable(), "Logout is failed!");
     }
 
-    @Test
-    public void testFavoriteProducts() {
-        Product productTest = ProductBuilder.getFirstProduct();
+    @Test(dataProvider = "DP1")
+    public void testFavoriteProducts(Product productTest) {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
