@@ -10,4 +10,8 @@ public class RandomUtils {
         return list.get(RANDOM.nextInt(list.size()));
     }
 
+    public static int returnRandomInRange(int min, int max) {
+        return RANDOM.nextInt((max - min) + 1) + min;
+    }
+
 }

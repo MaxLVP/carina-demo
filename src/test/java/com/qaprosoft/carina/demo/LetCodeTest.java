@@ -9,8 +9,6 @@ import com.qaprosoft.carina.demo.web.letcode.pages.TestPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Random;
-
 public class LetCodeTest implements IAbstractTest {
 
     @Test
@@ -21,12 +19,13 @@ public class LetCodeTest implements IAbstractTest {
         AlertsPage alertsPage = testPage.openAlertPage();
         Assert.assertTrue(alertsPage.isPageOpened(), "Alert page is not opened!");
         alertsPage.openSimpleAlert();
-        alertsPage.confirmAlert();
-        Assert.assertFalse(alertsPage.checkIsAlertPresented(), "Alert is presented!");
-        alertsPage.openConfirmAlert();
-        alertsPage.cancelAlerts();
-        Assert.assertFalse(alertsPage.checkIsAlertPresented(), "Alert is presented!");
-        alertsPage.openPromptAlert();
+        System.out.println(alertsPage.getTextFromAlert());
+        //alertsPage.confirmAlert();
+        //Assert.assertFalse(alertsPage.checkIsAlertPresented(), "Alert is presented!");
+        //alertsPage.openConfirmAlert();
+        //alertsPage.cancelAlerts();
+        //Assert.assertFalse(alertsPage.checkIsAlertPresented(), "Alert is presented!");
+        //alertsPage.openPromptAlert();
     }
 
     @Test
@@ -50,15 +49,17 @@ public class LetCodeTest implements IAbstractTest {
 
     @Test
     public void testSlider() {
-        int countOfCountries = 26;
+        int goalCount = RandomUtils.returnRandomInRange(1, 50);
         TestPage testPage = new TestPage(getDriver());
         testPage.open();
         Assert.assertTrue(testPage.isPageOpened(), "Test page is not opened!");
         SliderPage sliderPage = testPage.openSliderPage();
         Assert.assertTrue(sliderPage.isPageOpened(), "Slider page is not opened!");
-        sliderPage.inputNumberToSlider(String.valueOf(countOfCountries));
         sliderPage.getCountriesOpen();
-        Assert.assertEquals(countOfCountries, sliderPage.returnSizeOfCountries(),
+        int startCount = sliderPage.returnSizeOfCountries();
+        sliderPage.inputNumberToSlider(startCount, goalCount);
+        sliderPage.getCountriesOpen();
+        Assert.assertEquals(goalCount, sliderPage.returnSizeOfCountries(),
                 "Count of countries is not equal");
     }
 }

@@ -2,8 +2,8 @@ package com.qaprosoft.carina.demo.web.letcode.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.utils.SliderUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class SliderPage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -33,9 +31,9 @@ public class SliderPage extends AbstractPage {
         getCountriesButton.click();
     }
 
-    public void inputNumberToSlider(String number) {
-        LOGGER.info("Set number " + number + " to slider");
-        countOfCountriesInput.type(number);
+    public void inputNumberToSlider(int startNumber, int goalNumber) {
+        LOGGER.info("Set number " + goalNumber + " to slider");
+        SliderUtils.moveSlider(startNumber, goalNumber, countOfCountriesInput);
     }
 
     public int returnSizeOfCountries() {

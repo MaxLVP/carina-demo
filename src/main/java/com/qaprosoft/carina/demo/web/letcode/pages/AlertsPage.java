@@ -45,6 +45,10 @@ public class AlertsPage extends AbstractPage {
         cancelAlert();
     }
 
+    public String getTextFromAlert() {
+        return driver.switchTo().alert().getText();
+    }
+
     public boolean checkIsAlertPresented() {
         return isAlertPresent();
     }
