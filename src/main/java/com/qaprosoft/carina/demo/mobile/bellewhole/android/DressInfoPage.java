@@ -4,29 +4,36 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.demo.mobile.bellewhole.common.DressInfoPageBase;
 import com.qaprosoft.carina.demo.mobile.bellewhole.models.DressModel;
 import com.zebrunner.carina.utils.factory.DeviceType;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = DressInfoPageBase.class)
 public class DressInfoPage extends DressInfoPageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    private static final String PRODUCT_STYLE_XPATH = "";
-    private static final String PRODUCT_MATERIAL_XPATH="";
-    private static final String PRODUCT_LENGTH_XPATH="";
+    private static final String PRODUCT_STYLE_XPATH = "//android.view.View[@text='Style:']//following-sibling::android.view.View";
+    private static final String PRODUCT_MATERIAL_XPATH="//android.view.View[@text='Material:']//following-sibling::android.view.View";
+    private static final String PRODUCT_LENGTH_XPATH="//android.view.View[@text='Length:']//following-sibling::android.view.View";
+    private static final String PRODUCT_DESCRIPTION_OPEN_BUTTON_ID = "com.geeko.bellewholesale:id/ib_description";
 
-    @FindBy()
+    @FindBy(id = "com.geeko.bellewholesale:id/tv_minPrice")
     private ExtendedWebElement priceLabel;
 
-    @FindBy()
-    private ExtendedWebElement productDetailsOpenButton;
 
     public DressInfoPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return priceLabel.isElementPresent();
     }
 
     public DressModel getDressModelFromPage() {
@@ -40,11 +47,16 @@ public class DressInfoPage extends DressInfoPageBase {
     }
 
     public Double getPriceFromPage() {
-        return Double.valueOf(priceLabel.getText());
+        String price = StringUtils.remove(priceLabel.getText(), "$");
+        return Double.valueOf(price);
     }
 
     public void openProductDetails() {
-        productDetailsOpenButton.click();
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        HashMap<String, String> scrollObject = new HashMap<>();
+        scrollObject.put("direction", "down");
+        js.executeScript("mobile: scroll", scrollObject);
+        findExtendedWebElement(By.id(PRODUCT_DESCRIPTION_OPEN_BUTTON_ID)).click();
     }
 
     public String getProductStyle() {

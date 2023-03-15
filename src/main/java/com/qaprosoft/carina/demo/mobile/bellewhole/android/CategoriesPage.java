@@ -14,10 +14,10 @@ import java.lang.invoke.MethodHandles;
 public class CategoriesPage extends CategoriesPageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//android.widget.TextView[@text='Work Dresses']")
     private ExtendedWebElement workDressesPageButton;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//android.widget.TextView[@text='CATEGORIES']")
     private ExtendedWebElement categoriesMenuButton;
 
     public CategoriesPage(WebDriver driver) {

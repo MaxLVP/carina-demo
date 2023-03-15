@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qaprosoft.carina.demo.db.mysql.mappers.IPersonMapper">
+    <select id="findPersonById" resultMap="personResultMap">
+        SELECT idPerson, Name, Age, idCar, Model, Brand
+        FROM Person
+        LEFT JOIN Car
+        ON Person.Car_idCar = Car.idCar
+        Where idPerson = #{id}
+    </select>
+    <resultMap id="personResultMap" type="com.qaprosoft.carina.demo.db.mysql.models.PersonModel" autoMapping="false">
+        <id column="idPerson" property="id"/>
+        <result column="Name" property="name"/>
+        <result column="Age" property="age"/>
+        <association property="carModel" resultMap="com.qaprosoft.carina.demo.db.mysql.mappers.ICarMapper.carResultMap"/>
+    </resultMap>
+</mapper>

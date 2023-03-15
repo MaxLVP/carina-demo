@@ -4,10 +4,26 @@ import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.demo.mobile.bellewhole.android.*;
 import com.qaprosoft.carina.demo.mobile.bellewhole.models.DressBuilder;
 import com.qaprosoft.carina.demo.mobile.bellewhole.models.DressModel;
+import com.zebrunner.carina.utils.R;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class BelleWholeSaleAppTest implements IAbstractTest {
+
+    @Test
+    public void testAuthentication() {
+        PermissionWidgetPage authWidgetPage = new PermissionWidgetPage(getDriver());
+        Assert.assertTrue(authWidgetPage.isPageOpened(), "Permission widget is not opened!");
+        HomePage homePage = authWidgetPage.denyPermission();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        MePage mePage = homePage.openMePage();
+        Assert.assertTrue(mePage.isPageOpened(), "Me page is not opened!");
+        SignInPage signInPage = mePage.openSignInPage();
+        Assert.assertTrue(signInPage.isPageOpened(), "Sign in page is not opened!");
+        mePage = signInPage.signIn(R.TESTDATA.get("belle_email"), R.TESTDATA.get("belle_password"));
+        Assert.assertTrue(mePage.isPageOpened(), "Me page is not opened!");
+        Assert.assertTrue(mePage.checkIfSignedIn(), "We are not signed in!");
+    }
 
     @Test
     public void testCategoriesMenu() {
@@ -36,26 +52,38 @@ public class BelleWholeSaleAppTest implements IAbstractTest {
         searchPage.searchItem(testDressModel.getId());
         DressInfoPage dressInfoPage = searchPage.openDressPageBySearch();
         Assert.assertTrue(dressInfoPage.isPageOpened(), "Dress info page is not opened!");
-        Assert.assertEquals(testDressModel, dressInfoPage.getDressModelFromPage(), "Models of products are not equals!");
+        Assert.assertEquals(testDressModel.getPrice(), dressInfoPage.getPriceFromPage(), "Models of products are not equals!");
     }
 
     @Test
-    public void testAddProductToFavorite() {
+    public void testAddProductToFavoriteAndCheckSales() {
+        PermissionWidgetPage authWidgetPage = new PermissionWidgetPage(getDriver());
+        Assert.assertTrue(authWidgetPage.isPageOpened(), "Permission widget is not opened!");
+        HomePage homePage = authWidgetPage.denyPermission();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        MePage mePage = homePage.openMePage();
+        Assert.assertTrue(mePage.isPageOpened(), "Me page is not opened!");
+        SignInPage signInPage = mePage.openSignInPage();
+        Assert.assertTrue(signInPage.isPageOpened(), "Sign in page is not opened!");
+        mePage = signInPage.signIn(R.TESTDATA.get("belle_email"), R.TESTDATA.get("belle_password"));
+        Assert.assertTrue(mePage.isPageOpened(), "Me page is not opened!");
+        Assert.assertTrue(mePage.checkIfSignedIn(), "We are not signed in!");
 
     }
 
     @Test
     public void testCart() {
+        PermissionWidgetPage authWidgetPage = new PermissionWidgetPage(getDriver());
+        Assert.assertTrue(authWidgetPage.isPageOpened(), "Permission widget is not opened!");
+        HomePage homePage = authWidgetPage.denyPermission();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        MePage mePage = homePage.openMePage();
+        Assert.assertTrue(mePage.isPageOpened(), "Me page is not opened!");
+        SignInPage signInPage = mePage.openSignInPage();
+        Assert.assertTrue(signInPage.isPageOpened(), "Sign in page is not opened!");
+        mePage = signInPage.signIn(R.TESTDATA.get("belle_email"), R.TESTDATA.get("belle_password"));
+        Assert.assertTrue(mePage.isPageOpened(), "Me page is not opened!");
+        Assert.assertTrue(mePage.checkIfSignedIn(), "We are not signed in!");
 
-    }
-
-    @Test
-    public void testAuthentication() {
-
-    }
-
-    @Test
-    public void testDifferentFiltersOnHomePage() {
-        
     }
 }

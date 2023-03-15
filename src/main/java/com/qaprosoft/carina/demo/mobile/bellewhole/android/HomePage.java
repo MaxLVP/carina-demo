@@ -14,11 +14,14 @@ import java.lang.invoke.MethodHandles;
 public class HomePage extends HomePageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//android.widget.TextView[@text='Category']")
     private ExtendedWebElement categoriesOpenButton;
 
-    @FindBy(xpath = "")
+    @FindBy(id = "com.geeko.bellewholesale:id/tvTitle")
     private ExtendedWebElement searchOpenButton;
+
+    @FindBy(xpath = "//android.widget.TextView[@text='Me']")
+    private ExtendedWebElement mePageOpenButton;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -41,11 +44,21 @@ public class HomePage extends HomePageBase {
         return new SearchPage(driver);
     }
 
+    public MePage openMePage() {
+        LOGGER.info("Opening Me page");
+        clickOnMePageButton();
+        return new MePage(driver);
+    }
+
     public void clickOnCategoriesButton() {
         categoriesOpenButton.click();
     }
 
     public void clickOnSearchOpenButton() {
         searchOpenButton.click();
+    }
+
+    public void clickOnMePageButton() {
+        mePageOpenButton.click();
     }
 }

@@ -14,16 +14,21 @@ import java.lang.invoke.MethodHandles;
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = SearchPageBase.class)
 public class SearchPage extends SearchPageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    private static final String SEARCHED_DRESS_XPATH = "";
+    private static final String SEARCHED_DRESS_ID = "com.geeko.bellewholesale:id/iv_product";
 
-    @FindBy(xpath = "")
+    @FindBy(id = "com.geeko.bellewholesale:id/iv_clearall")
     private ExtendedWebElement clearSearchInput;
 
-    @FindBy(xpath = "")
+    @FindBy(id = "com.geeko.bellewholesale:id/et_search")
     private ExtendedWebElement searchInput;
 
     public SearchPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return searchInput.isElementPresent();
     }
 
     public void searchItem(String itemId) {
@@ -36,7 +41,7 @@ public class SearchPage extends SearchPageBase {
 
     public DressInfoPage openDressPageBySearch() {
         LOGGER.info("Opening search dress");
-        findExtendedWebElement(By.xpath(SEARCHED_DRESS_XPATH)).click();
+        findExtendedWebElement(By.id(SEARCHED_DRESS_ID)).click();
         return new DressInfoPage(driver);
     }
 

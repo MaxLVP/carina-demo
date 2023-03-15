@@ -14,15 +14,15 @@ import java.lang.invoke.MethodHandles;
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = WorkDressesPageBase.class)
 public class WorkDressesPage extends WorkDressesPageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    private static final String PRICE_LOW_TO_HIGH_SORT_XPATH = "";
+    private static final String PRICE_LOW_TO_HIGH_SORT_XPATH = "//android.widget.TextView[@text='Price Low To High']";
 
-    @FindBy(xpath = "")
+    @FindBy(id = "com.geeko.bellewholesale:id/tv_title")
     private ExtendedWebElement workDressesPageTitle;
 
-    @FindBy(xpath = "")
+    @FindBy(id = "com.geeko.bellewholesale:id/ll_sort")
     private ExtendedWebElement sortBySelect;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.geeko.bellewholesale:id/llContent'][1]//android.widget.TextView[@resource-id='com.geeko.bellewholesale:id/tv_minPrice']")
     private ExtendedWebElement priceOfFirstItem;
 
     public WorkDressesPage(WebDriver driver) {
