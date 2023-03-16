@@ -10,4 +10,9 @@ public class StringUtils {
         String correctPhone = phone.substring(6, 8) + phone.substring(10);
         return correctPhone.replace("-", "");
     }
+
+    public static double parsePriceFromApp(String price)
+    {
+        return Double.parseDouble(org.apache.commons.lang3.StringUtils.remove(price, "$"));
+    }
 }
