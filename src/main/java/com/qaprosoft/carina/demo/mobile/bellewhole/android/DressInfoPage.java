@@ -16,6 +16,7 @@ import java.lang.invoke.MethodHandles;
 public class DressInfoPage extends DressInfoPageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private static final String MENU_HOMEPAGE_OPEN_BUTTON_ID = "com.geeko.bellewholesale:id/cl_home";
+    private static final String CONFIRM_BUTTON_BUY_ID = "com.geeko.bellewholesale:id/bt_buy";
 
     @FindBy(id = "com.geeko.bellewholesale:id/tv_minPrice")
     private ExtendedWebElement priceLabel;
@@ -25,6 +26,12 @@ public class DressInfoPage extends DressInfoPageBase {
 
     @FindBy(id = "com.geeko.bellewholesale:id/ib_mune")
     private ExtendedWebElement openMenuButton;
+
+    @FindBy(id = "com.geeko.bellewholesale:id/bt_add_to_cart")
+    private ExtendedWebElement addToCartButton;
+
+    @FindBy(id = "com.geeko.bellewholesale:id/iv_src")
+    private ExtendedWebElement openCartButton;
 
     public DressInfoPage(WebDriver driver) {
         super(driver);
@@ -45,8 +52,10 @@ public class DressInfoPage extends DressInfoPageBase {
         clickOnAddToWishButton();
     }
 
-    public void clickOnAddToWishButton() {
-        addToWishListButton.click();
+    public void addProductToCart() {
+        LOGGER.info("Adding product to cart");
+        clickOnAddToCartButton();
+        findExtendedWebElement(By.id(CONFIRM_BUTTON_BUY_ID)).click();
     }
 
     public HomePage openHomePage() {
@@ -56,7 +65,25 @@ public class DressInfoPage extends DressInfoPageBase {
         return new HomePage(driver);
     }
 
+    public CartPage openCartPage() {
+        LOGGER.info("Opening Cart page");
+        clickOnCardPageOpenButton();
+        return new CartPage(driver);
+    }
+
+    public void clickOnAddToWishButton() {
+        addToWishListButton.click();
+    }
+
     public void clickOnMenuButton() {
         openMenuButton.click();
+    }
+
+    public void clickOnAddToCartButton() {
+        addToCartButton.click();
+    }
+
+    public void clickOnCardPageOpenButton() {
+        openCartButton.click();
     }
 }

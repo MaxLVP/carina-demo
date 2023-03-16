@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite verbose="1" name="Carina Demo Tests - Bellewholesale app android tests" >
+    <test name="Product tests">
+        <classes>
+            <class name="com.qaprosoft.carina.demo.BelleWholeSaleAppTest">
+                <methods>
+                    <include name="testAddProductToFavorite"/>
+                    <include name="testCart"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Different pages">
+        <classes>
+            <class name="com.qaprosoft.carina.demo.BelleWholeSaleAppTest">
+                <methods>
+                    <include name="testCategoriesMenu"/>
+                    <include name="testSearchProductById"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
