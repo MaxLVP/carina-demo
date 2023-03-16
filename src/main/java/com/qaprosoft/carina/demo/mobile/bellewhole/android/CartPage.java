@@ -2,7 +2,7 @@ package com.qaprosoft.carina.demo.mobile.bellewhole.android;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.demo.mobile.bellewhole.common.CartPageBase;
-import com.qaprosoft.carina.demo.utils.StringUtils;
+import com.qaprosoft.carina.demo.utils.ParseStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -35,7 +35,7 @@ public class CartPage extends CartPageBase {
     }
 
     public double getPriceFromPage() {
-        return StringUtils.parsePriceFromApp(priceLabel.getText());
+        return ParseStringUtils.parsePriceFromApp(priceLabel.getText());
     }
 
     public boolean checkIsCartEmpty() {

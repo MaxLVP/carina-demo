@@ -2,7 +2,7 @@ package com.qaprosoft.carina.demo.mobile.bellewhole.android;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.demo.mobile.bellewhole.common.WishListPageBase;
-import com.qaprosoft.carina.demo.utils.StringUtils;
+import com.qaprosoft.carina.demo.utils.ParseStringUtils;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -31,7 +31,7 @@ public class WishList extends WishListPageBase {
     }
 
     public double getPrice() {
-        return StringUtils.parsePriceFromApp(priceLabel.getText());
+        return ParseStringUtils.parsePriceFromApp(priceLabel.getText());
     }
 
     public DressInfoPage openDressInfoPage() {

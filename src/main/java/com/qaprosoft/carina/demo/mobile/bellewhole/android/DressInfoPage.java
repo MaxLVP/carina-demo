@@ -2,7 +2,7 @@ package com.qaprosoft.carina.demo.mobile.bellewhole.android;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.demo.mobile.bellewhole.common.DressInfoPageBase;
-import com.qaprosoft.carina.demo.utils.StringUtils;
+import com.qaprosoft.carina.demo.utils.ParseStringUtils;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -43,7 +43,7 @@ public class DressInfoPage extends DressInfoPageBase {
     }
 
     public double getPriceFromPage() {
-        return StringUtils.parsePriceFromApp(priceLabel.getText());
+        return ParseStringUtils.parsePriceFromApp(priceLabel.getText());
     }
 
     public void addProductToWishList() {

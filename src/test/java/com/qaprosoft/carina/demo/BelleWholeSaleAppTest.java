@@ -109,11 +109,9 @@ public class BelleWholeSaleAppTest implements IAbstractTest {
         searchPage.searchItem(productId);
         DressInfoPage dressInfoPage = searchPage.openDressPageBySearch();
         Assert.assertTrue(dressInfoPage.isPageOpened(), "Dress info page is not opened!");
-        double productPrice = dressInfoPage.getPriceFromPage();
         dressInfoPage.addProductToCart();
         CartPage cartPage = dressInfoPage.openCartPage();
         Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened!");
-        //Assert.assertEquals(productPrice, cartPage.getPriceFromPage(), "Price is not the same!");
         cartPage.deleteProductFromCart();
         Assert.assertTrue(cartPage.checkIsCartEmpty(), "Cart is not empty!");
     }

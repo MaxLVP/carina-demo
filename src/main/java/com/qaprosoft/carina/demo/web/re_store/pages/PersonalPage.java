@@ -2,7 +2,7 @@ package com.qaprosoft.carina.demo.web.re_store.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.qaprosoft.carina.demo.utils.StringUtils;
+import com.qaprosoft.carina.demo.utils.ParseStringUtils;
 import com.qaprosoft.carina.demo.web.re_store.models.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -35,7 +35,7 @@ public class PersonalPage extends AbstractPage {
         User user = new User();
         user.setFirstName(userNameField.getText());
         user.setEmail(userEmailField.getText());
-        user.setPhone(StringUtils.parsePhone(userPhoneField.getText()));
+        user.setPhone(ParseStringUtils.parsePhone(userPhoneField.getText()));
         return user;
     }
 }

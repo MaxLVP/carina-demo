@@ -2,7 +2,7 @@ package com.qaprosoft.carina.demo.web.re_store.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.qaprosoft.carina.demo.utils.StringUtils;
+import com.qaprosoft.carina.demo.utils.ParseStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ public class CartPage extends AbstractPage {
 
     public double getAllPrice() {
         LOGGER.info("Get all price from order");
-        return StringUtils.parsePrice(strongPrice.getText(), smallPrice.getText());
+        return ParseStringUtils.parsePrice(strongPrice.getText(), smallPrice.getText());
     }
 
     public void removeFirstItem() {
