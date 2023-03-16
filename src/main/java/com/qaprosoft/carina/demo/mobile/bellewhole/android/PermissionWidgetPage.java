@@ -34,7 +34,9 @@ public class PermissionWidgetPage extends PermissionWidgetBasePage {
     public HomePage denyPermission() {
         LOGGER.info("Deny permission");
         denyButton.click();
-        findExtendedWebElement(By.xpath(CLOSE_ADV_BUTTON_XPATH)).click();
+        if (findExtendedWebElement(By.xpath(CLOSE_ADV_BUTTON_XPATH)) != null) {
+            findExtendedWebElement(By.xpath(CLOSE_ADV_BUTTON_XPATH)).click();
+        }
         return new HomePage(driver);
     }
 

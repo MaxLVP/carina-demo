@@ -23,6 +23,9 @@ public class HomePage extends HomePageBase {
     @FindBy(xpath = "//android.widget.TextView[@text='Me']")
     private ExtendedWebElement mePageOpenButton;
 
+    @FindBy(id = "com.geeko.bellewholesale:id/iv_like")
+    private ExtendedWebElement wishListPageOpenButton;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -50,6 +53,12 @@ public class HomePage extends HomePageBase {
         return new MePage(driver);
     }
 
+    public WishList openWishListPage() {
+        LOGGER.info("Opening wish list page");
+        clickOnWishListButton();
+        return new WishList(driver);
+    }
+
     public void clickOnCategoriesButton() {
         categoriesOpenButton.click();
     }
@@ -61,4 +70,6 @@ public class HomePage extends HomePageBase {
     public void clickOnMePageButton() {
         mePageOpenButton.click();
     }
+
+    public void clickOnWishListButton() {wishListPageOpenButton.click();}
 }

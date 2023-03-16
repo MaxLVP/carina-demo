@@ -22,6 +22,9 @@ public class MePage extends MePageBase {
     @FindBy(xpath = "//android.widget.TextView[@text='SIGN IN']")
     private ExtendedWebElement signInButton;
 
+    @FindBy(xpath = "//android.widget.TextView[@text='Home']")
+    private ExtendedWebElement homePageButton;
+
     public MePage(WebDriver driver) {
         super(driver);
     }
@@ -37,11 +40,21 @@ public class MePage extends MePageBase {
         return new SignInPage(driver);
     }
 
+    public HomePage openHomePage() {
+        LOGGER.info("Opening Home Page");
+        clickOnHomePageButton();
+        return new HomePage(driver);
+    }
+
     public void clickOnSignInButton() {
         signInButton.click();
     }
 
     public boolean checkIfSignedIn() {
         return findExtendedWebElement(By.xpath(GO_SHOPPING_BUTTON_XPATH)).isElementPresent();
+    }
+
+    public void clickOnHomePageButton() {
+        homePageButton.click();
     }
 }

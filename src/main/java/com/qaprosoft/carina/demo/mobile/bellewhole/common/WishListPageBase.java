@@ -3,9 +3,9 @@ package com.qaprosoft.carina.demo.mobile.bellewhole.common;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
-public abstract class WorkDressesPageBase extends AbstractPage {
+public abstract class WishListPageBase extends AbstractPage {
 
-    public WorkDressesPageBase(WebDriver driver) {
+    public WishListPageBase(WebDriver driver) {
         super(driver);
     }
 }
